@@ -1,8 +1,12 @@
 import "package:dots_indicator/dots_indicator.dart";
 import "package:flutter/material.dart";
+import "package:food_delivery_app/coltrollers/popular_product_controller.dart";
+import "package:food_delivery_app/utills/app_constants.dart";
 import "package:food_delivery_app/utills/dimensions.dart";
 import "package:food_delivery_app/widgets/icon_widget.dart";
 import "package:food_delivery_app/widgets/info_column.dart";
+import "package:get/get.dart";
+import "../../models/popular_model.dart";
 import '../../utills/colors.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
@@ -39,34 +43,49 @@ class _FoodSliderState extends State<FoodSlider> {
 
   @override
   Widget build(BuildContext context) {
-    print("tHs ${MediaQuery.of(context).size.height}");
-    print("tHs ${MediaQuery.of(context).size.width}");
+    // print("tHs ${MediaQuery.of(context).size.height}");
+    // print("tHs ${MediaQuery.of(context).size.width}");
     return Column(
       children: [
         //the Slider
-        Container(
-          color: Colors.white,
-          height: Dimensions.pageViewContainer,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, position) {
-              return _buildPageItem(position);
-            },
-          ),
-        ),
+        //we user GetBuilder to redraw ui every time a change is made to the sate
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return popularProducts.isLoaded
+              ? Container(
+                  color: Colors.white,
+                  height: Dimensions.pageViewContainer,
+                  child: PageView.builder(
+                    controller: pageController,
+                    itemCount: popularProducts.popularProductList.length,
+                    itemBuilder: (context, position) {
+                      return _buildPageItem(position,
+                          popularProducts.popularProductList[position]);
+                    },
+                  ),
+                )
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                  backgroundColor: Colors.white,
+                  strokeWidth: 8,
+                );
+        }),
         //the slide indicator
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue,
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeColor: AppColors.mainColor,
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimensions.radiusSize5)),
-          ),
-        ),
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount: popularProducts.popularProductList.isEmpty
+                ? 2
+                : popularProducts.popularProductList.length,
+            position: _currPageValue,
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeColor: AppColors.mainColor,
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSize5)),
+            ),
+          );
+        }),
+
         SizedBox(
           height: Dimensions.Height30,
         ),
@@ -186,7 +205,7 @@ class _FoodSliderState extends State<FoodSlider> {
     );
   }
 
-  Widget _buildPageItem(int position) {
+  Widget _buildPageItem(int position, ProductModal popularProduct) {
     Matrix4 matrix = Matrix4.identity();
     if (position == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - position) * (1 - _scaleFactor);
@@ -225,9 +244,12 @@ class _FoodSliderState extends State<FoodSlider> {
               borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
               color:
                   position.isEven ? const Color(0xff69c5df) : Colors.green[400],
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/image/food0.png"),
+                // image: AssetImage("assets/image/food0.png"),
+                image: NetworkImage(
+                    "${AppConstants.BASE_URL}/uploads/${popularProduct.img!}" //bang operator (tell compiler it can't be null)
+                    ),
               )),
         ),
         Align(
@@ -265,7 +287,7 @@ class _FoodSliderState extends State<FoodSlider> {
                   left: 15,
                   right: 15,
                   bottom: Dimensions.Height5),
-              child: const InfoColumn(text: "yup"),
+              child: InfoColumn(text: popularProduct.name!),
             ),
           ),
         ),

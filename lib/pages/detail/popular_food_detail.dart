@@ -3,6 +3,7 @@ import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:food_delivery_app/widgets/expandable_text.dart';
 import 'package:food_delivery_app/widgets/info_column.dart';
 
 class PopularFoodDetail extends StatelessWidget {
@@ -40,7 +41,6 @@ class PopularFoodDetail extends StatelessWidget {
                   AppIcon(icon: Icons.arrow_back_ios),
                   AppIcon(
                     icon: Icons.shopping_cart_checkout_outlined,
-                    backgroundColor: Colors.transparent,
                   ),
                 ]),
           ),
@@ -62,7 +62,7 @@ class PopularFoodDetail extends StatelessWidget {
                     ),
                     topRight: Radius.circular(Dimensions.radiusSize20),
                   ),
-                  color: Colors.black26,
+                  color: Colors.white,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,11 +72,25 @@ class PopularFoodDetail extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.Height20,
                     ),
-                    BigText(text: "Details"),
+                    BigText(
+                      text: "Details",
+                      size: Dimensions.fontSize26,
+                    ),
+                    SizedBox(
+                      height: Dimensions.Height15,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableText(
+                          text:
+                              "This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. ",
+                          size: Dimensions.fontSize16,
+                        ),
+                      ),
+                    ),
                   ],
                 )),
           ),
-        
         ],
       ),
 
@@ -131,7 +145,7 @@ class PopularFoodDetail extends StatelessWidget {
             ),
             //the add to cart Button(
             Container(
-             padding: EdgeInsets.only(
+              padding: EdgeInsets.only(
                   top: Dimensions.Height20,
                   bottom: Dimensions.Height20,
                   left: Dimensions.Width20,
@@ -140,7 +154,10 @@ class PopularFoodDetail extends StatelessWidget {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(Dimensions.radiusSize20),
               ),
-              child: BigText(text: " \$10 | Add To Cart", color: Colors.white,),
+              child: BigText(
+                text: " \$10 | Add To Cart",
+                color: Colors.white,
+              ),
             ),
           ],
         ),

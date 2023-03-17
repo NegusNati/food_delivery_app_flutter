@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:food_delivery_app/utills/dimensions.dart';
 
 class AppIcon extends StatelessWidget {
@@ -7,6 +8,7 @@ class AppIcon extends StatelessWidget {
   final Color iconColor;
   final double iconSize;
   final IconData icon;
+  final double newSize;
 
   const AppIcon({
     Key? key,
@@ -14,6 +16,7 @@ class AppIcon extends StatelessWidget {
     this.iconColor = const Color(0xff756d54),
     this.iconSize = 40,
     required this.icon,
+     this.newSize = 0,
   }) : super(key: key);
 
   @override
@@ -28,7 +31,7 @@ class AppIcon extends StatelessWidget {
       child: Icon(
         icon,
         color: iconColor,
-        size: Dimensions.iconSize16,
+        size: newSize == 0 ? Dimensions.iconSize16 : newSize,
       ),
     );
   }
