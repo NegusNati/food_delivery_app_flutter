@@ -61,8 +61,8 @@ class PopularFoodDetail extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: AppIcon(icon: Icons.arrow_back_ios)),
-                  AppIcon(
+                      child: const AppIcon(icon: Icons.arrow_back_ios)),
+                  const AppIcon(
                     icon: Icons.shopping_cart_checkout_outlined,
                   ),
                 ]),
@@ -178,7 +178,7 @@ class PopularFoodDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radiusSize20),
               ),
               child: BigText(
-                text: " \$10 | Add To Cart",
+                text: " \$ ${product.price!} | Add To Cart",
                 color: Colors.white,
               ),
             ),

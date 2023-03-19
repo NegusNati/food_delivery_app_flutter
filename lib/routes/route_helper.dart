@@ -12,7 +12,8 @@ class RouteHelper {
 
   //best way by far for data passing
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
-  static String getRecomendedFood() => '$recomendedFood';
+  static String getRecomendedFood(int pageId) =>
+      '$recomendedFood?pageId=$pageId';
   static String getInital() => '$inital';
 
   static List<GetPage> routes = [
@@ -21,15 +22,17 @@ class RouteHelper {
         name: popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
-          return PopularFoodDetail(pageId: int.parse( pageId!));
-          
+          return PopularFoodDetail(pageId: int.parse(pageId!));
         },
 
         //to make cool trasitions of routes
         transition: Transition.zoom),
     GetPage(
         name: recomendedFood,
-        page: () => const RecomendedFoodDetail(),
+        page: () {
+          var pageId = Get.parameters['pageId'];
+          return RecomendedFoodDetail(pageId: int.parse(pageId!));
+        },
         //to make cool trasitions of routes
         transition: Transition.zoom),
   ];

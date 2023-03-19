@@ -119,7 +119,7 @@ class _FoodSliderState extends State<FoodSlider> {
             ],
           ),
         ),
-//our list
+//our list of Recommended food
         GetBuilder<RecomendedProductController>(builder: (recomendedProduct) {
           return recomendedProduct.isLoaded
               ? ListView.builder(
@@ -132,7 +132,7 @@ class _FoodSliderState extends State<FoodSlider> {
                     //index is the number of items you want in the list
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed(RouteHelper.getRecomendedFood());
+                        Get.toNamed(RouteHelper.getRecomendedFood(index));
                       },
                       child: Container(
                         margin: EdgeInsets.only(

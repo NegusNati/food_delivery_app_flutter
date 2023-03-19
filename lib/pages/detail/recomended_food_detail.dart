@@ -1,23 +1,33 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expandable_text.dart';
-import 'package:get/get.dart';
 
+import '../../coltrollers/recomended_products_controller.dart';
 import '../../routes/route_helper.dart';
+import '../../utills/app_constants.dart';
 import '../../widgets/app_icon.dart';
 
 class RecomendedFoodDetail extends StatelessWidget {
-  const RecomendedFoodDetail({super.key});
+  int pageId;
+  RecomendedFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var recomendedProduct =
+        Get.find<RecomendedProductController>().recomendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          automaticallyImplyLeading : false,
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
           title:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -25,8 +35,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(RouteHelper.getInital());
                 },
-                child:  const AppIcon(icon: Icons.arrow_back_ios)),
-                
+                child: const AppIcon(icon: Icons.arrow_back_ios)),
             const AppIcon(
               icon: Icons.shopping_cart_checkout_outlined,
             ),
@@ -47,7 +56,7 @@ class RecomendedFoodDetail extends StatelessWidget {
               width: double.maxFinite,
               child: Center(
                 child: BigText(
-                  text: "yes ofcourse",
+                  text: recomendedProduct.name!,
                   size: Dimensions.fontSize26,
                 ),
               ),
@@ -57,8 +66,12 @@ class RecomendedFoodDetail extends StatelessWidget {
           backgroundColor: AppColors.yellowColor,
           expandedHeight: 350,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset("assets/image/food0.png",
-                fit: BoxFit.cover, width: double.maxFinite),
+            background: Image.network(
+                AppConstants.BASE_URL +
+                    AppConstants.UPLOAD_URL +
+                    recomendedProduct.img!,
+                fit: BoxFit.cover,
+                width: double.maxFinite),
           ),
         ),
         SliverToBoxAdapter(
@@ -72,7 +85,8 @@ class RecomendedFoodDetail extends StatelessWidget {
                       top: Dimensions.Height5),
                   child: ExpandableText(
                     text:
-                        "This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not. This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.This is our text, yes it is our app, or is it , or is it not.",
+                    recomendedProduct.description!
+                       ,
                     size: Dimensions.fontSize16,
                   )),
             ],
@@ -158,7 +172,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                         BorderRadius.circular(Dimensions.radiusSize20),
                   ),
                   child: BigText(
-                    text: " \$10 | Add To Cart",
+                    text: " \$ ${recomendedProduct.price!} | Add To Cart",
                     color: Colors.white,
                   ),
                 ),
