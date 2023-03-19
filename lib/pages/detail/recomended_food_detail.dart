@@ -3,7 +3,9 @@ import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expandable_text.dart';
+import 'package:get/get.dart';
 
+import '../../routes/route_helper.dart';
 import '../../widgets/app_icon.dart';
 
 class RecomendedFoodDetail extends StatelessWidget {
@@ -15,15 +17,20 @@ class RecomendedFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading : false,
           toolbarHeight: 70,
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppIcon(icon: Icons.arrow_back_ios),
-                AppIcon(
-                  icon: Icons.shopping_cart_checkout_outlined,
-                ),
-              ]),
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getInital());
+                },
+                child:  const AppIcon(icon: Icons.arrow_back_ios)),
+                
+            const AppIcon(
+              icon: Icons.shopping_cart_checkout_outlined,
+            ),
+          ]),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(30),
             child: Container(
@@ -124,18 +131,20 @@ class RecomendedFoodDetail extends StatelessWidget {
               children: [
                 //the add and remove button
                 Container(
-                  padding: EdgeInsets.only(
-                      top: Dimensions.Height20,
-                      bottom: Dimensions.Height20,
-                      left: Dimensions.Width20,
-                      right: Dimensions.Width20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.radiusSize20),
-                  ),
-                  child:  Icon(Icons.favorite_sharp, color: AppColors.mainColor,)
-                ),
+                    padding: EdgeInsets.only(
+                        top: Dimensions.Height20,
+                        bottom: Dimensions.Height20,
+                        left: Dimensions.Width20,
+                        right: Dimensions.Width20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radiusSize20),
+                    ),
+                    child: Icon(
+                      Icons.favorite_sharp,
+                      color: AppColors.mainColor,
+                    )),
                 //the add to cart Button(
                 Container(
                   padding: EdgeInsets.only(

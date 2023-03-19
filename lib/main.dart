@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/popular_product_controller.dart';
-import 'package:food_delivery_app/pages/home/main_page.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
 import 'coltrollers/recomended_products_controller.dart';
-import 'pages/detail/recomended_food_detail.dart';
+import 'pages/home/main_page.dart';
 
 Future<void> main() async {
   // to ensure the dependencies are first initalized
@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MainPage(),
+      initialRoute: RouteHelper.inital,
+      getPages: RouteHelper.routes,
     );
   }
 }
