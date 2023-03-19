@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
-import '../data/api/repository/popular_product_repo.dart';
 import '../data/api/repository/recomended_product_repo.dart';
-import '../models/popular_model.dart';
+import '../models/recomended_model.dart';
 
 class RecomendedProductController extends GetxController {
   final RecomendedPoductRepo recomendedPoductRepo;
@@ -13,7 +12,7 @@ class RecomendedProductController extends GetxController {
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
-  Future<void> getPopularProductList() async {
+  Future<void> getRecomendedrProductList() async {
     Response response = await recomendedPoductRepo.getRecomendedProductList();
     // if (response.statusCode == 200) {
     //   _popularProductList = [];
@@ -25,7 +24,7 @@ class RecomendedProductController extends GetxController {
     if (response.statusCode == 200) {
       print("got products");
       _recomendedProductList = [];
-      _recomendedProductList.addAll(Product.fromJson(response.body).products);
+      _recomendedProductList.addAll(Recomended.fromJson(response.body).recomended);
       //  Map rawData = jsonDecode(response.body);
       // _popularProductList.addAll(Product.fromJson(rawData).products);
       //print(_popularProductList);

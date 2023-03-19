@@ -6,6 +6,7 @@ import "package:food_delivery_app/utills/dimensions.dart";
 import "package:food_delivery_app/widgets/icon_widget.dart";
 import "package:food_delivery_app/widgets/info_column.dart";
 import "package:get/get.dart";
+import "../../coltrollers/recomended_products_controller.dart";
 import "../../models/popular_model.dart";
 import '../../utills/colors.dart';
 import '../../widgets/big_text.dart';
@@ -117,90 +118,105 @@ class _FoodSliderState extends State<FoodSlider> {
           ),
         ),
 //our list
-        ListView.builder(
-            // addAutomaticKeepAlives: true,
+        GetBuilder<RecomendedProductController>(builder: (recomendedProduct) {
+          return recomendedProduct.isLoaded
+              ? ListView.builder(
+                  // addAutomaticKeepAlives: true,
 
-            shrinkWrap: true, //use it with AlwaysScrollableScrollPhysics
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              //index is the number of items you want in the list
-              return Container(
-                margin: EdgeInsets.only(
-                    top: Dimensions.Height5,
-                    left: Dimensions.Width10,
-                    right: Dimensions.Width10,
-                    bottom: Dimensions.Height5),
-                child: Row(children: [
-                  //image section
-                  Container(
-                    width: Dimensions.listViewImgSize,
-                    height: Dimensions.listViewImgSize,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radiusSize20),
-                      color: Colors.white24,
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets/image/food0.png"),
-                      ),
-                    ),
-                  ),
-                  //text Section
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: Dimensions.Width10),
-                      // padding: EdgeInsets.only(top: Dimensions.Height15, bottom: Dimensions.Height15),
-                      height: Dimensions.listViewTextSize,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(
-                            Dimensions.radiusSize20,
-                          ),
-                          bottomRight: Radius.circular(
-                            Dimensions.radiusSize20,
-                          ),
-                        ),
-                        color: Colors.white24,
-                      ),
-
-                      child: Padding(
-                        padding: EdgeInsets.only(
+                  shrinkWrap: true, //use it with AlwaysScrollableScrollPhysics
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: recomendedProduct.recomendedProductList.length,
+                  itemBuilder: (context, index) {
+                    //index is the number of items you want in the list
+                    return Container(
+                      margin: EdgeInsets.only(
+                          top: Dimensions.Height5,
                           left: Dimensions.Width10,
                           right: Dimensions.Width10,
-                          top: Dimensions.Height5,
+                          bottom: Dimensions.Height5),
+                      child: Row(children: [
+                        //image section
+                        Container(
+                          width: Dimensions.listViewImgSize,
+                          height: Dimensions.listViewImgSize,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusSize20),
+                              color: Colors.white24,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                // image: AssetImage("assets/image/food0.png"),
+                                image: NetworkImage(AppConstants.BASE_URL +
+                                        AppConstants.UPLOAD_URL +
+                                        recomendedProduct
+                                            .recomendedProductList[index]
+                                            .img! //bang operator (tell compiler it can't be null)
+                                    ),
+                              )),
                         ),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              BigText(
-                                  text: "Yes This is it hh j hjhjk haskj kasj",
-                                  overFlow: TextOverflow.ellipsis),
-                              SmallText(text: "This is the small text"),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                        //text Section
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: Dimensions.Width10),
+                            // padding: EdgeInsets.only(top: Dimensions.Height15, bottom: Dimensions.Height15),
+                            height: Dimensions.listViewTextSize,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(
+                                  Dimensions.radiusSize20,
+                                ),
+                                bottomRight: Radius.circular(
+                                  Dimensions.radiusSize20,
+                                ),
+                              ),
+                              color: Colors.white24,
+                            ),
+
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: Dimensions.Width10,
+                                right: Dimensions.Width10,
+                                top: Dimensions.Height5,
+                              ),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconWidget(
-                                        icon: Icons.circle_sharp,
-                                        text: "Normal",
-                                        iconColor: AppColors.iconColor1),
-                                    IconWidget(
-                                        icon: Icons.location_on,
-                                        text: "1.7km",
-                                        iconColor: AppColors.mainColor),
-                                    IconWidget(
-                                        icon: Icons.access_time_rounded,
-                                        text: "32min",
-                                        iconColor: AppColors.iconColor2),
-                                  ])
-                            ]),
-                      ),
-                    ),
-                  ),
-                ]),
-              );
-            }),
+                                    BigText(
+                                        text: recomendedProduct
+                                            .recomendedProductList[index].name!,
+                                        overFlow: TextOverflow.ellipsis),
+                                    SmallText(text: "This is the small text"),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconWidget(
+                                              icon: Icons.circle_sharp,
+                                              text: "Normal",
+                                              iconColor: AppColors.iconColor1),
+                                          IconWidget(
+                                              icon: Icons.location_on,
+                                              text: "1.7km",
+                                              iconColor: AppColors.mainColor),
+                                          IconWidget(
+                                              icon: Icons.access_time_rounded,
+                                              text: "32min",
+                                              iconColor: AppColors.iconColor2),
+                                        ])
+                                  ]),
+                            ),
+                          ),
+                        ),
+                      ]),
+                    );
+                  })
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                  backgroundColor: Colors.white,
+                  strokeWidth: 8,
+                );
+        })
       ],
     );
   }
@@ -247,8 +263,10 @@ class _FoodSliderState extends State<FoodSlider> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 // image: AssetImage("assets/image/food0.png"),
-                image: NetworkImage(
-                    "${AppConstants.BASE_URL}/uploads/${popularProduct.img!}" //bang operator (tell compiler it can't be null)
+                image: NetworkImage(AppConstants.BASE_URL +
+                        AppConstants.UPLOAD_URL +
+                        popularProduct
+                            .img! //bang operator (tell compiler it can't be null)
                     ),
               )),
         ),

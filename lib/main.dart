@@ -3,6 +3,7 @@ import 'package:food_delivery_app/coltrollers/popular_product_controller.dart';
 import 'package:food_delivery_app/pages/home/main_page.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
+import 'coltrollers/recomended_products_controller.dart';
 import 'pages/detail/recomended_food_detail.dart';
 
 Future<void> main() async {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecomendedProductController>().getRecomendedrProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
