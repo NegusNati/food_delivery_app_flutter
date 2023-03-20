@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../coltrollers/cart_controller.dart';
+import '../data/api/repository/cart_repo.dart';
 import '../pages/detail/popular_food_detail.dart';
 import '../pages/detail/recomended_food_detail.dart';
 import '../pages/home/main_page.dart';
@@ -22,6 +24,7 @@ class RouteHelper {
         name: popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
+          // Get.lazyPut(() => CartController(cartRepo: CartRepo()));
           return PopularFoodDetail(pageId: int.parse(pageId!));
         },
 
