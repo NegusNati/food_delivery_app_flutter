@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
     Get.find<RecomendedProductController>().getRecomendedrProductList();
-    Get.find<PopularProductController>()
-        .initProduct(Get.find<CartController>());
+    // Get.find<PopularProductController>()
+    //     .initProduct(Get.find<CartController>());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

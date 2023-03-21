@@ -27,12 +27,12 @@ class PopularFoodDetail extends StatelessWidget {
     // Get.lazyPut(
     //   fenix: true,
     //   () => CartController(cartRepo: CartRepo()));
-     Get.put( CartController(cartRepo: CartRepo()), permanent:true);
-    
+    Get.put(CartController(cartRepo: CartRepo()), permanent: true);
+
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
     Get.find<PopularProductController>()
-        .initProduct(Get.find<CartController>());
+        .initProduct(Get.find<CartController>(), product);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,9 +67,27 @@ class PopularFoodDetail extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios)),
-                  const AppIcon(
-                    icon: Icons.shopping_cart_checkout_outlined,
-                  ),
+                  GetBuilder<PopularProductController>(builder: (product) {
+                    return Stack(
+                      children: [
+                        AppIcon(
+                          icon: Icons.shopping_cart_checkout_outlined,
+                        ),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  iconSize: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    );
+                  }),
                 ]),
           ),
           //reusable info coulumn & details
@@ -166,7 +184,7 @@ class PopularFoodDetail extends StatelessWidget {
                     SizedBox(
                       width: Dimensions.Width10,
                     ),
-                    BigText(text: popularProduct.quantity.toString()),
+                    BigText(text: popularProduct.inCartItems.toString()),
                     SizedBox(
                       width: Dimensions.Width10,
                     ),

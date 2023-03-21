@@ -54,7 +54,7 @@ class PopularProductController extends GetxController {
   }
 
   int checkQuantity(int quantity) {
-    if (quantity < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar(
         "Sorry",
         "You can't reduce more",
@@ -63,14 +63,13 @@ class PopularProductController extends GetxController {
         overlayBlur: 1,
       );
       return 0;
-    } else if (quantity > 30) {
+    } else if ((_inCartItems + quantity) > 30) {
       Get.snackbar(
         "Sorry",
         "You can't Add more",
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
         overlayBlur: 1,
-
       );
       return 30;
     } else {
@@ -78,24 +77,42 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct(CartController cart) {
+  void initProduct(CartController cart, ProductModal product) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
-    //TODO: get from storage _inCartItems
+    var exist = false;
+    exist = _cart.existInCart(product);
+    //TODO: get from storage _inCartItems! DONE
+
+    print("Does it ? =>" + exist.toString());
+    if (exist) {
+      _inCartItems = _cart.getQuantity(product);
+    }
+    print("Qunatity in cart is  =>" + _inCartItems.toString());
   }
 
   void addItem(ProductModal product) {
-    if (_quantity > 0) {
-      _cart.addItem(product, _quantity);
-    }else{
-       Get.snackbar(
-        "Sorry",
-        "Can't add null value to cart",
-        backgroundColor: AppColors.mainColor,
-        colorText: Colors.white,
-        overlayBlur: 1,
-      );
-    }
+    // if (_quantity > 0) { moved to cart controller
+    _cart.addItem(product, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+    _cart.items.forEach((key, value) {
+      print("The Id is ${value.id}The Quantity is ${value.quantity}");
+    });
+    // } else {
+    //   Get.snackbar(
+    //     "Sorry",
+    //     "You need to add more items!",
+    //     backgroundColor: AppColors.mainColor,
+    //     colorText: Colors.white,
+    //     overlayBlur: 1,
+    //   );
+    // }
+    update();
+  }
+
+  int get totalItems {
+    return _cart.totalItems;
   }
 }
