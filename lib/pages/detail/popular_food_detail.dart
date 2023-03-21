@@ -24,12 +24,15 @@ class PopularFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //to find the controller that get us the data
-          Get.lazyPut(() => CartController(cartRepo: CartRepo()));
+    // Get.lazyPut(
+    //   fenix: true,
+    //   () => CartController(cartRepo: CartRepo()));
+     Get.put( CartController(cartRepo: CartRepo()), permanent:true);
+    
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
     Get.find<PopularProductController>()
         .initProduct(Get.find<CartController>());
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -192,7 +195,7 @@ class PopularFoodDetail extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    popularProduct.addToCart(product);
+                    popularProduct.addItem(product);
                   },
                   child: BigText(
                     text: " \$ ${product.price!} | Add To Cart",

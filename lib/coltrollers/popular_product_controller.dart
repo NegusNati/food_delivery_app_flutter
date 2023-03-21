@@ -12,8 +12,8 @@ class PopularProductController extends GetxController {
 
   late CartController _cart;
 
-  List<dynamic> _popularProductList = [];
-  List<dynamic> get popularProductList => _popularProductList;
+  List<ProductModal> _popularProductList = [];
+  List<ProductModal> get popularProductList => _popularProductList;
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
   int _quantity = 0;
@@ -31,7 +31,6 @@ class PopularProductController extends GetxController {
     // } else {}
 
     if (response.statusCode == 200) {
-      print("got products");
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
       //  Map rawData = jsonDecode(response.body);
@@ -40,14 +39,14 @@ class PopularProductController extends GetxController {
       _isLoaded = true;
       update();
     } else {
-      print("No products");
+      print("could ont get products, : from controller");
     }
   }
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-      print("Indremented$_quantity");
+      // print("Indremented$_quantity");
     } else {
       _quantity = checkQuantity(_quantity - 1);
     }
@@ -86,8 +85,7 @@ class PopularProductController extends GetxController {
     //TODO: get from storage _inCartItems
   }
 
-  void addToCart(ProductModal product) {
-    //  hererrrrrrr
+  void addItem(ProductModal product) {
     if (_quantity > 0) {
       _cart.addItem(product, _quantity);
     }else{

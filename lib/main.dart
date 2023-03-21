@@ -3,6 +3,7 @@ import 'package:food_delivery_app/coltrollers/popular_product_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
+import 'coltrollers/cart_controller.dart';
 import 'coltrollers/recomended_products_controller.dart';
 import 'pages/home/main_page.dart';
 
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
     Get.find<RecomendedProductController>().getRecomendedrProductList();
+    Get.find<PopularProductController>()
+        .initProduct(Get.find<CartController>());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
