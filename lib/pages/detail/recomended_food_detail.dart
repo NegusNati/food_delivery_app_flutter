@@ -25,7 +25,7 @@ class RecomendedFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var recomendedProduct =
         Get.find<RecomendedProductController>().recomendedProductList[pageId];
-        Get.find<PopularProductController>()
+    Get.find<PopularProductController>()
         .initProduct(Get.find<CartController>(), recomendedProduct);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -40,9 +40,38 @@ class RecomendedFoodDetail extends StatelessWidget {
                   Get.toNamed(RouteHelper.getInital());
                 },
                 child: const AppIcon(icon: Icons.arrow_back_ios)),
-            const AppIcon(
-              icon: Icons.shopping_cart_checkout_outlined,
-            ),
+            // the cart icon
+            GetBuilder<PopularProductController>(builder: (product) {
+              return Stack(
+                children: [
+                  const AppIcon(
+                    icon: Icons.shopping_cart_checkout_outlined,
+                  ),
+                  Get.find<PopularProductController>().totalItems >= 1
+                      ? Positioned(
+                          right: 0,
+                          top: 0,
+                          child: AppIcon(
+                            icon: Icons.circle,
+                            iconSize: 20,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.mainColor,
+                          ),
+                        )
+                      : Container(),
+                  Positioned(
+                      right: 5,
+                      top: 2,
+                      child: BigText(
+                        text: Get.find<PopularProductController>()
+                            .totalItems
+                            .toString(),
+                        color: Colors.white,
+                        size: 14,
+                      )),
+                ],
+              );
+            }),
           ]),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(30),

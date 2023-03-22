@@ -51,7 +51,6 @@ class PopularProductController extends GetxController {
       _quantity = checkQuantity(_quantity - 1);
 
       print("Decremented  by : $_quantity");
-
     }
     update(); //to build the UI everytime there is an update in quantity
   }
@@ -65,6 +64,10 @@ class PopularProductController extends GetxController {
         colorText: Colors.white,
         overlayBlur: 1,
       );
+      if (_inCartItems > 0) {
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
       return 0;
     } else if ((_inCartItems + quantity) > 30) {
       Get.snackbar(
