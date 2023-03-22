@@ -70,7 +70,7 @@ class PopularFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (product) {
                     return Stack(
                       children: [
-                        AppIcon(
+                        const AppIcon(
                           icon: Icons.shopping_cart_checkout_outlined,
                         ),
                         Get.find<PopularProductController>().totalItems >= 1
@@ -85,6 +85,12 @@ class PopularFoodDetail extends StatelessWidget {
                                 ),
                               )
                             : Container(),
+                             Positioned(
+                                right:5,
+                                top: 2,
+                                child: BigText(text:  Get.find<PopularProductController>().totalItems.toString() , color: Colors.white, size: 14,)
+                              ),
+
                       ],
                     );
                   }),

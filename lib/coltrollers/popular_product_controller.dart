@@ -46,9 +46,12 @@ class PopularProductController extends GetxController {
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-      // print("Indremented$_quantity");
+      print("Incremented by : $_quantity");
     } else {
       _quantity = checkQuantity(_quantity - 1);
+
+      print("Decremented  by : $_quantity");
+
     }
     update(); //to build the UI everytime there is an update in quantity
   }
@@ -83,11 +86,10 @@ class PopularProductController extends GetxController {
     _cart = cart;
     var exist = false;
     exist = _cart.existInCart(product!);
-    //TODO: get from storage _inCartItems! DONE
 
     print("Does it ? =>" + exist.toString());
     if (exist) {
-      _inCartItems = _cart.getQuantity(product!);
+      _inCartItems = _cart.getQuantity(product);
     }
     print("Qunatity in cart is  =>" + _inCartItems.toString());
   }

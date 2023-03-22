@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 
 import '../data/api/repository/recomended_product_repo.dart';
-import '../models/recomended_model.dart';
+import '../models/popular_model.dart';
 
 class RecomendedProductController extends GetxController {
   final RecomendedPoductRepo recomendedPoductRepo;
   RecomendedProductController({required this.recomendedPoductRepo});
 
-  List<dynamic> _recomendedProductList = [];
-  List<dynamic> get recomendedProductList => _recomendedProductList;
+  List<ProductModal> _recomendedProductList = [];
+  List<ProductModal> get recomendedProductList => _recomendedProductList;
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
@@ -24,7 +24,7 @@ class RecomendedProductController extends GetxController {
     if (response.statusCode == 200) {
       print("got products");
       _recomendedProductList = [];
-      _recomendedProductList.addAll(Recomended.fromJson(response.body).recomended);
+      _recomendedProductList.addAll(Product.fromJson(response.body).products);
       //  Map rawData = jsonDecode(response.body);
       // _popularProductList.addAll(Product.fromJson(rawData).products);
       //print(_popularProductList);
