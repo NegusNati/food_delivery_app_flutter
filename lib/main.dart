@@ -38,9 +38,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CartPage(),
-      // initialRoute: RouteHelper.inital,
-      // getPages: RouteHelper.routes,
+      home: const MainPage(),
+      initialRoute: RouteHelper.inital,
+      getPages: RouteHelper.routes,
     );
   }
 }
