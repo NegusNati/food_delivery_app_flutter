@@ -13,6 +13,7 @@ import 'package:food_delivery_app/widgets/info_column.dart';
 import '../../coltrollers/cart_controller.dart';
 import '../../coltrollers/popular_product_controller.dart';
 import '../../data/api/repository/cart_repo.dart';
+import '../../routes/route_helper.dart';
 import '../../utills/app_constants.dart';
 
 class PopularFoodDetail extends StatelessWidget {
@@ -72,7 +73,7 @@ class PopularFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (product) {
                     return GestureDetector(
                       onTap: () {
-                        Get.to(() => CartPage());
+                        Get.toNamed(RouteHelper.getCartPage());
                       },
                       child: Stack(
                         children: [
