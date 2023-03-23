@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
-import 'package:food_delivery_app/pages/home/main_page.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -101,7 +100,7 @@ class CartPage extends StatelessWidget {
               context: context,
               removeTop: true,
               child: GetBuilder<CartController>(builder: (cartController) {
-                if (cartController.getItems.length <= 0) {
+                if (cartController.getItems.isEmpty) {
                   return Container(
                     margin: EdgeInsets.only(top: Dimensions.Height15),
                     height: Dimensions.Height30 * 5,
@@ -117,9 +116,9 @@ class CartPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  var _cartList = cartController.getItems;
+                  var cartList = cartController.getItems;
                   return ListView.builder(
-                      itemCount: _cartList.length,
+                      itemCount: cartList.length,
                       itemBuilder: (context, index) {
                         // ignore: sized_box_for_whitespace
                         return Container(
@@ -132,7 +131,7 @@ class CartPage extends StatelessWidget {
                                   var indexFromPopularList =
                                       Get.find<PopularProductController>()
                                           .popularProductList
-                                          .indexOf(_cartList[index].product!);
+                                          .indexOf(cartList[index].product!);
                                   if (indexFromPopularList >= 0) {
                                     Get.toNamed(RouteHelper.getPopularFood(
                                         indexFromPopularList));
@@ -140,7 +139,7 @@ class CartPage extends StatelessWidget {
                                     var indexFromRecommendedList =
                                         Get.find<RecomendedProductController>()
                                             .recomendedProductList
-                                            .indexOf(_cartList[index].product!);
+                                            .indexOf(cartList[index].product!);
                                     if (indexFromRecommendedList >= 0) {
                                       Get.toNamed(RouteHelper.getRecomendedFood(
                                           indexFromRecommendedList));
@@ -212,7 +211,7 @@ class CartPage extends StatelessWidget {
                                                   GestureDetector(
                                                     onTap: () {
                                                       cartController.addItem(
-                                                          _cartList[index]
+                                                          cartList[index]
                                                               .product!,
                                                           -1);
                                                     },
@@ -226,7 +225,7 @@ class CartPage extends StatelessWidget {
                                                     width: Dimensions.Width10,
                                                   ),
                                                   BigText(
-                                                      text: _cartList[index]
+                                                      text: cartList[index]
                                                           .quantity
                                                           .toString()),
                                                   SizedBox(
@@ -235,7 +234,7 @@ class CartPage extends StatelessWidget {
                                                   GestureDetector(
                                                     onTap: () {
                                                       cartController.addItem(
-                                                          _cartList[index]
+                                                          cartList[index]
                                                               .product!,
                                                           1);
                                                     },
@@ -263,6 +262,60 @@ class CartPage extends StatelessWidget {
           ),
         ),
       ]),
+       bottomNavigationBar:
+          GetBuilder<CartController>(builder: (cartController) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+          
+            Container(
+              height: Dimensions.bottomHeightBarSize,
+              padding: EdgeInsets.only(
+                  top: Dimensions.Height30,
+                  bottom: Dimensions.Height30,
+                  left: Dimensions.Width20,
+                  right: Dimensions.Width20),
+              decoration: BoxDecoration(
+                color: AppColors.buttonBackgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Dimensions.radiusSize20 * 2),
+                  topRight: Radius.circular(Dimensions.radiusSize20 * 2),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: Dimensions.Width5 /2,),
+               BigText(text:"${cartController.totalAmount} Birr Only"),
+                  SizedBox(width: Dimensions.Width5 / 2,),
+                  //the add to cart Button(
+                  GestureDetector(
+                    onTap: () {
+                      // productController.addItem(recomendedProduct);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: Dimensions.Height20,
+                          bottom: Dimensions.Height20,
+                          left: Dimensions.Width20,
+                          right: Dimensions.Width20),
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radiusSize20),
+                      ),
+                      child: BigText(
+                        text: " Check Out!",
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
