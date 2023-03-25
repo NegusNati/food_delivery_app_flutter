@@ -32,4 +32,15 @@ class CartModel {
     time = json['time'];
     product = ProductModal.fromJson(json['product']);
   }
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "name": this.name,
+      "price": this.price,
+      "img": this.img,
+      "quantity": this.quantity,
+      "isExist": this.isExist,
+      "time": this.time,
+    };
+  }
 }

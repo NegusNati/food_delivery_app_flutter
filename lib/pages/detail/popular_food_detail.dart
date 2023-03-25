@@ -29,7 +29,7 @@ class PopularFoodDetail extends StatelessWidget {
     // Get.lazyPut(
     //   fenix: true,
     //   () => CartController(cartRepo: CartRepo()));
-    Get.put(CartController(cartRepo: CartRepo()), permanent: true);
+    // Get.put(CartController(cartRepo: CartRepo(sharedPreferences: null)), permanent: true);
 
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
