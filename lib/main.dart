@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(),
-      initialRoute: RouteHelper.inital,
+      // home: const MainPage(),
+      initialRoute: RouteHelper.getInital(),
       getPages: RouteHelper.routes,
     );
   }
