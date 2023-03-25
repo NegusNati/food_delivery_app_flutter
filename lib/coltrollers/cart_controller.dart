@@ -17,6 +17,9 @@ class CartController extends GetxController {
 
   Map<int, CartModel> get items => _items;
 
+//for local strorage
+  List<CartModel> storageItems = [];
+
   void addItem(ProductModal product, int quantity) {
     var totalQuantity = 0;
 
@@ -109,8 +112,21 @@ class CartController extends GetxController {
     var total = 0;
     _items.forEach((key, value) {
       total += value.quantity! * value.price!;
-
     });
     return total;
+  }
+
+  List<CartModel> getCartData() {
+    setLocalCart = cartRepo.getCartList();
+
+    return storageItems;
+  }
+
+  set setLocalCart(List<CartModel> items) {
+    storageItems = items;
+
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
   }
 }

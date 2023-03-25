@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
     ProductModal product = ProductModal();
     Get.find<PopularProductController>()
         .initProduct(Get.find<CartController>(), product);
+
+    Get.find<CartController>().getCartData();
     // Get.find<PopularProductController>()
     //     .initProduct(Get.find<CartController>(), );
     return GetBuilder<PopularProductController>(
