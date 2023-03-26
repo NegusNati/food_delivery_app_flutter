@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
+import 'package:food_delivery_app/data/api/repository/cart_repo.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -262,12 +263,11 @@ class CartPage extends StatelessWidget {
           ),
         ),
       ]),
-       bottomNavigationBar:
+      bottomNavigationBar:
           GetBuilder<CartController>(builder: (cartController) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-          
             Container(
               height: Dimensions.bottomHeightBarSize,
               padding: EdgeInsets.only(
@@ -285,13 +285,18 @@ class CartPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: Dimensions.Width5 /2,),
-               BigText(text:"${cartController.totalAmount} Birr Only"),
-                  SizedBox(width: Dimensions.Width5 / 2,),
+                  SizedBox(
+                    width: Dimensions.Width5 / 2,
+                  ),
+                  BigText(text: "${cartController.totalAmount} Birr Only"),
+                  SizedBox(
+                    width: Dimensions.Width5 / 2,
+                  ),
                   //the add to cart Button(
                   GestureDetector(
                     onTap: () {
                       // productController.addItem(recomendedProduct);
+                      cartController.addToHistory();
                     },
                     child: Container(
                       padding: EdgeInsets.only(
