@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../utills/colors.dart';
+import '../cart/cart_history.dart';
 import 'main_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -85,9 +86,7 @@ class _HomePageState extends State<HomePage> {
       Container(
         child: const Center(child: Text("Next Page")),
       ),
-      Container(
-        child: const Center(child: Text("Next 2 Page")),
-      ),
+      CartHistory(),
       Container(
         child: const Center(child: Text("Next 3 Page")),
       ),
