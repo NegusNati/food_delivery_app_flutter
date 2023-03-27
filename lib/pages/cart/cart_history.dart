@@ -45,7 +45,7 @@ class CartHistory extends StatelessWidget {
             color: AppColors.mainColor,
             width: double.maxFinite,
             height: Dimensions.Height20 * 5,
-            padding: EdgeInsets.only(top: 40, right: Dimensions.Width5),
+            padding: EdgeInsets.only(top: Dimensions.Height20*2, right: Dimensions.Width5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -54,7 +54,8 @@ class CartHistory extends StatelessWidget {
                     icon: Icons.shopping_cart_checkout_sharp,
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
-                    iconSize: Dimensions.iconSize16),
+                    newSize : Dimensions.fontSize26,
+                     ),
               ],
             ),
           ),
@@ -72,7 +73,7 @@ class CartHistory extends StatelessWidget {
                   children: [
                     for (int i = 0; i < itemsPerOrder.length; i++)
                       Container(
-                        height: 120,
+                        height: Dimensions.Height30 * 4,
                         margin: EdgeInsets.only(bottom: Dimensions.Height20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,8 +109,8 @@ class CartHistory extends StatelessWidget {
                                       }
                                       return index <= 2
                                           ? Container(
-                                              height: 80,
-                                              width: 80,
+                                              height: Dimensions.Height20*4,
+                                              width:  Dimensions.Width20*4,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(
@@ -133,7 +134,7 @@ class CartHistory extends StatelessWidget {
                                     }),
                                   ),
                                   SizedBox(
-                                    height: 90,
+                                    height:  Dimensions.Height20*4,
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
