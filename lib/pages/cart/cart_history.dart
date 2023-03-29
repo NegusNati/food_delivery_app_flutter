@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
+import 'package:food_delivery_app/models/cart_model.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
@@ -15,7 +19,8 @@ class CartHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var getCartHistoryList = Get.find<CartController>().getCartHistoryList().reversed.toList();
+    var getCartHistoryList =
+        Get.find<CartController>().getCartHistoryList().reversed.toList();
 
     Map<String, int> cartItemsPerOrder = {};
 
@@ -28,13 +33,20 @@ class CartHistory extends StatelessWidget {
       }
     }
 
-    List<int> cartOrderTimeToList() {
+    List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) {
         return e.value;
       }).toList();
     }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<int> itemsPerOrder = cartItemsPerOrderToList();
+
+//to get the time to compare for one more button
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) {
+        return e.key;
+      }).toList();
+    }
 
     var listCounter = 0;
 
@@ -45,17 +57,18 @@ class CartHistory extends StatelessWidget {
             color: AppColors.mainColor,
             width: double.maxFinite,
             height: Dimensions.Height20 * 5,
-            padding: EdgeInsets.only(top: Dimensions.Height20*2, right: Dimensions.Width5),
+            padding: EdgeInsets.only(
+                top: Dimensions.Height20 * 2, right: Dimensions.Width5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BigText(text: "Cart History", color: Colors.white),
                 AppIcon(
-                    icon: Icons.shopping_cart_checkout_sharp,
-                    iconColor: Colors.white,
-                    backgroundColor: AppColors.mainColor,
-                    newSize : Dimensions.fontSize26,
-                     ),
+                  icon: Icons.shopping_cart_checkout_sharp,
+                  iconColor: Colors.white,
+                  backgroundColor: AppColors.mainColor,
+                  newSize: Dimensions.fontSize26,
+                ),
               ],
             ),
           ),
@@ -109,8 +122,8 @@ class CartHistory extends StatelessWidget {
                                       }
                                       return index <= 2
                                           ? Container(
-                                              height: Dimensions.Height20*4,
-                                              width:  Dimensions.Width20*4,
+                                              height: Dimensions.Height20 * 4,
+                                              width: Dimensions.Width20 * 4,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(
@@ -134,7 +147,7 @@ class CartHistory extends StatelessWidget {
                                     }),
                                   ),
                                   SizedBox(
-                                    height:  Dimensions.Height20*4,
+                                    height: Dimensions.Height20 * 4,
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -147,20 +160,50 @@ class CartHistory extends StatelessWidget {
                                           BigText(
                                               text: "${itemsPerOrder[i]} Items",
                                               color: AppColors.titleColor),
-                                          Container(
-                                            padding: EdgeInsets.all(
-                                                Dimensions.Width5),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions.radiusSize5),
-                                              border: Border.all(
-                                                  width: 1,
+                                          GestureDetector(
+                                            onTap: () {
+                                              var orderTime =
+                                                  cartOrderTimeToList();
+                                              Map<int, CartModel> moreOrder =
+                                                  {};
+                                              for (int j = 0;
+                                                  j < getCartHistoryList.length;
+                                                  j++) {
+                                                if (getCartHistoryList[j]
+                                                        .time ==
+                                                    orderTime[i]) {
+                                                  moreOrder.putIfAbsent(
+                                                    getCartHistoryList[j].id!,
+                                                    () => CartModel.fromJson(
+                                                        jsonDecode(jsonEncode(
+                                                            getCartHistoryList[
+                                                                j]))),
+                                                  );
+                                                }
+                                              }
+                                              //to set the items to _items
+                                              Get.find<CartController>()
+                                                  .setItems = moreOrder;
+                                              Get.find<CartController>()
+                                                  .addToCartList();
+                                              Get.toNamed(
+                                                  RouteHelper.getCartPage());
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(
+                                                  Dimensions.Width5),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions.radiusSize5),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: AppColors.mainColor),
+                                              ),
+                                              child: SmallText(
+                                                  text: "One More",
                                                   color: AppColors.mainColor),
                                             ),
-                                            child: SmallText(
-                                                text: "One More",
-                                                color: AppColors.mainColor),
                                           ),
                                         ]),
                                   ),

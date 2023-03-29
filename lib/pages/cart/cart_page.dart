@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
-import 'package:food_delivery_app/data/api/repository/cart_repo.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -113,6 +112,13 @@ class CartPage extends StatelessWidget {
                           height: Dimensions.Height5,
                         ),
                         SmallText(text: "Please Add your favorite items "),
+                        Container(
+                          height: 80,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/image/empty_cart_animation.gif")),
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -141,7 +147,15 @@ class CartPage extends StatelessWidget {
                                         Get.find<RecomendedProductController>()
                                             .recomendedProductList
                                             .indexOf(cartList[index].product!);
-                                    if (indexFromRecommendedList >= 0) {
+                                    if (indexFromRecommendedList < 0) {
+                                      Get.snackbar(
+                                        "Sorry",
+                                        "Can't review items from History",
+                                        backgroundColor: Colors.red[500],
+                                        colorText: Colors.white,
+                                        overlayBlur: 1,
+                                      );
+                                    } else {
                                       Get.toNamed(RouteHelper.getRecomendedFood(
                                           indexFromRecommendedList));
                                     }

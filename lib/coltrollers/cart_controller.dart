@@ -145,4 +145,15 @@ class CartController extends GetxController {
   List<CartModel> getCartHistoryList() {
     return cartRepo.getCartHistoryList();
   }
+
+  set setItems(Map<int, CartModel> setItems) {
+    _items = {};
+    //the one coming from history "show more" button
+    _items = setItems;
+  }
+
+  void addToCartList() {
+    cartRepo.addToCartList(getItems);
+    update();
+  }
 }
