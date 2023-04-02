@@ -1,44 +1,54 @@
-# Food Delivery App
+# Food Delivery App Flutter
 
-This is a mobile app for food delivery.
+This is a food delivery mobile app built with Flutter. It allows users to browse through available restaurants, select a menu item or items, and place an order for delivery.
 
 ## Features
 
-- User authentication
-- Browse restaurants
-- Browse menu items
-- Add items to cart
-- Checkout
-
-## Screenshots
-
-![Screenshot 1](/screenshots/screenshot1.png)
-![Screenshot 2](/screenshots/screenshot2.png)
+- Browse nearby restaurants: Users can see a list of nearby restaurants, view the menu and select an item to add to their cart.
+- Check out: Users can review their order, add delivery details, and complete checkout.
+- Payment integration: Secure online payments can be made with a chosen payment method.
+- Order Tracking: Users can track their order status in real-time.
 
 ## Getting Started
 
+These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes.
+
 ### Prerequisites
 
-- Flutter SDK
-- Android Studio / Xcode
+This project requires:
 
-### Installation
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- [Dart SDK](https://dart.dev/get-dart)
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/NegusNati/food_delivery_app_flutter.git
-Install packages
+### Installing
+
+1. Clone the repository:
+```
+git clone https://github.com/negusnati/food_delivery_app_flutter.git
+```
+2. Change directory to the project folder:
+```
+cd food_delivery_app_flutter
+```
+3. Fetch dependencies by running:
+```
 flutter pub get
-Run the app
+```
+4. To run the app on an Android emulator, execute:
+```
 flutter run
-Contributing
-Contributions are always welcome!
+```
+If you have a physical device connected, run
+```
+flutter run -d <device-name>
+```
+instead.
 
-License
-Distributed under the MIT License. See LICENSE for more information.
+## License
 
-Contact
-Negus Nati - @negusnati
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-Project Link: https://github.com/NegusNati/food_delivery_app_flutter
+## Acknowledgments
 
+- This app is built with [Flutter](https://flutter.dev/) framework.
+- Thanks to [Negus Nati](https://github.com/negusnati) for developing this interesting project.
