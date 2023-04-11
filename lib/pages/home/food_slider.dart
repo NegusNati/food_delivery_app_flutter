@@ -270,8 +270,8 @@ class _FoodSliderState extends State<FoodSlider> {
           },
           child: Container(
             height: Dimensions.pageViewImageContainer,
-            width: 700,
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 5),
+            width: Dimensions.Width30 * 23,
+            margin:  EdgeInsets.only(left: Dimensions.Width10, right:  Dimensions.Width10, top:  Dimensions.Height5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
                 color: position.isEven
@@ -292,7 +292,7 @@ class _FoodSliderState extends State<FoodSlider> {
           alignment: Alignment.bottomCenter,
           child: Container(
             height: Dimensions.pageViewTextContainer,
-            margin: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+            margin:  EdgeInsets.only(left: Dimensions.Width20 * 2, right: Dimensions.Width20 * 2, bottom: Dimensions.Height20 / 2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
               color: Colors.white,
@@ -320,8 +320,8 @@ class _FoodSliderState extends State<FoodSlider> {
             child: Container(
               padding: EdgeInsets.only(
                   top: Dimensions.Height15,
-                  left: 15,
-                  right: 15,
+                  left: Dimensions.Width10,
+                  right: Dimensions.Width10,
                   bottom: Dimensions.Height5),
               child: InfoColumn(text: popularProduct.name!),
             ),

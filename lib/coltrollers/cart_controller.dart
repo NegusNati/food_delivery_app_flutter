@@ -46,7 +46,7 @@ class CartController extends GetxController {
         _items.putIfAbsent(product.id!, () {
           //Debug reasons
           _items.forEach((key, value) {
-            print("qunatity is " + value.quantity.toString());
+            print("qunatity is ${value.quantity}");
           });
           return CartModel(
             id: product.id,

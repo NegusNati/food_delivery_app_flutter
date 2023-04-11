@@ -41,6 +41,7 @@ class PopularProductController extends GetxController {
       update();
     } else {
       print("could ont get products, : from controller");
+      print("response code of " + response.statusCode.toString() );
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
+import 'package:food_delivery_app/pages/cart/no_cart.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -27,7 +28,7 @@ class CartPage extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Get.toNamed(RouteHelper.getInital());
               },
               child: AppIcon(
                 icon: Icons.arrow_back_ios,
@@ -101,24 +102,27 @@ class CartPage extends StatelessWidget {
               removeTop: true,
               child: GetBuilder<CartController>(builder: (cartController) {
                 if (cartController.getItems.isEmpty) {
-                  return Container(
-                    margin: EdgeInsets.only(top: Dimensions.Height15),
+                  return SizedBox(
+                    // margin: EdgeInsets.only(top: Dimensions.Height15),
                     height: Dimensions.Height30 * 5,
                     width: double.maxFinite,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        BigText(text: "Sorry, You have no Item in your Cart"),
-                        SizedBox(
-                          height: Dimensions.Height5,
-                        ),
-                        SmallText(text: "Please Add your favorite items "),
-                        Container(
-                          height: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/image/empty_cart_animation.gif")),
-                          ),
-                        ),
+                      
+                      
+                       
+                        const NoCartPage(
+                            text: "Sorry, You have no Item in your Cart"),
+                             SmallText(text: "Please Add your favorite items "),
+                        // Container(
+                        //   height: 80,
+                        //   decoration: BoxDecoration(
+                        //     image: DecorationImage(
+                        //       image: AssetImage("assets/image/empty_cart_animation.gif")),
+                        //   ),
+                        // ),
                       ],
                     ),
                   );
@@ -279,6 +283,7 @@ class CartPage extends StatelessWidget {
       ]),
       bottomNavigationBar:
           GetBuilder<CartController>(builder: (cartController) {
+            
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -296,7 +301,7 @@ class CartPage extends StatelessWidget {
                   topRight: Radius.circular(Dimensions.radiusSize20 * 2),
                 ),
               ),
-              child: Row(
+              child: cartController.getItems.isNotEmpty ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
@@ -330,7 +335,7 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ): Container(),
             ),
           ],
         );

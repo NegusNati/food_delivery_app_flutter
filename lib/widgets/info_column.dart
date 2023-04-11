@@ -28,14 +28,14 @@ class InfoColumn extends StatelessWidget {
         Wrap(
           children: List.generate(
             5,
-            (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15),
+            (index) => Icon(Icons.star, color: AppColors.mainColor, size:  Dimensions.Height5),
           ),
         ),
-        const SizedBox(width: 5),
+         SizedBox(width: Dimensions.Width5),
         SmallText(text: "4.5"),
-        const SizedBox(width: 5),
+         SizedBox(width: Dimensions.Width5),
         SmallText(text: "1234"),
-        const SizedBox(width: 5),
+         SizedBox(width: Dimensions.Width5),
         SmallText(text: "comments"),
       ]),
       SizedBox(height: Dimensions.Height20),
