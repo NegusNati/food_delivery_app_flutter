@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/popular_product_controller.dart';
 import 'package:food_delivery_app/models/popular_model.dart';
+import 'package:food_delivery_app/pages/auth/sign_in.dart';
+import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 import 'package:food_delivery_app/pages/cart/cart_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
@@ -41,9 +43,9 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            // home: const SplashScreen(),
-            initialRoute: RouteHelper.getSplashPage(),
-            getPages: RouteHelper.routes,
+            home:const SignInPage(),
+            // initialRoute: RouteHelper.getSplashPage(),
+            // getPages: RouteHelper.routes,
           );
         });
       },
