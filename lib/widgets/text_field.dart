@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget {
   final String hintText;
   IconData icon;
   final Color? color;
+  final bool isObsecure;
 
   TextFieldWidget({
     Key? key,
@@ -15,6 +16,7 @@ class TextFieldWidget extends StatelessWidget {
     required this.hintText,
     required this.icon,
     required this.color,
+    this.isObsecure = false,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class TextFieldWidget extends StatelessWidget {
             )
           ]),
       child: TextField(
+        obscureText: isObsecure,
         controller: textController,
         decoration: InputDecoration(
           // contentPadding: EdgeInsets.only(left: Dimensions.Width10),

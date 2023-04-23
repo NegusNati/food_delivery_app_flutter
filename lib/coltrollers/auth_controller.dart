@@ -14,6 +14,7 @@ class AuthController extends GetxController implements GetxService {
 
   Future<ResponseModel> registration(SignUpBody signUpBody) async {
     _isLoading = true;
+    update();
     Response response = await authRepo.registration(signUpBody);
     late ResponseModel responseModel;
     if (response.statusCode == 200) {
@@ -22,8 +23,40 @@ class AuthController extends GetxController implements GetxService {
     } else {
       responseModel = ResponseModel(false, response.statusText!);
     }
-    _isLoading = true;
+    _isLoading = false;
     update();
     return responseModel;
+  }
+
+  Future<ResponseModel> login(String phone, String password) async {
+    // print("Getting Token");
+    // print(authRepo.getUserToken().toString());
+    _isLoading = true;
+    update();
+    Response response = await authRepo.login(phone, password);
+    late ResponseModel responseModel;
+    if (response.statusCode == 200) {
+      // print("back-end token");
+      authRepo.saveUserToken(response.body["token"]);
+      // print(response.body["token"].toString());
+      responseModel = ResponseModel(true, response.body["token"]);
+    } else {
+      responseModel = ResponseModel(false, response.statusText!);
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  void saveUserNumberAndPassword(String phone, String password) {
+    authRepo.saveUserNumberAndPassword(phone, password);
+  }
+
+   bool userHaveLoggedIn() {
+    return authRepo.userHaveLoggedIn();
+  }
+
+  bool clearShareData(){
+    return authRepo.clearSharedData();
   }
 }

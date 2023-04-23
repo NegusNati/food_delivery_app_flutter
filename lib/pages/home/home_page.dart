@@ -4,6 +4,7 @@ import 'package:food_delivery_app/pages/account/account_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../utills/colors.dart';
+import '../auth/sign_in.dart';
 import '../auth/sign_up_page.dart';
 import '../cart/cart_history.dart';
 import 'main_page.dart';
@@ -83,7 +84,9 @@ class _HomePageState extends State<HomePage> {
   // }
 
   List<Widget> _buildScreens() {
-    return [const MainPage(), SignUpPage(), CartHistory(), AccountPage()];
+    return [const MainPage(), Container(
+      child: const Center(child: Text("2nd page")),
+    ), const CartHistory(), const AccountPage()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {

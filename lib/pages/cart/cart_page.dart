@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/coltrollers/auth_controller.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
 import 'package:food_delivery_app/pages/cart/no_cart.dart';
@@ -110,12 +111,9 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                      
-                      
-                       
                         const NoCartPage(
                             text: "Sorry, You have no Item in your Cart"),
-                             SmallText(text: "Please Add your favorite items "),
+                        SmallText(text: "Please Add your favorite items "),
                         // Container(
                         //   height: 80,
                         //   decoration: BoxDecoration(
@@ -283,7 +281,6 @@ class CartPage extends StatelessWidget {
       ]),
       bottomNavigationBar:
           GetBuilder<CartController>(builder: (cartController) {
-            
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -301,41 +298,49 @@ class CartPage extends StatelessWidget {
                   topRight: Radius.circular(Dimensions.radiusSize20 * 2),
                 ),
               ),
-              child: cartController.getItems.isNotEmpty ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: Dimensions.Width5 / 2,
-                  ),
-                  BigText(text: "${cartController.totalAmount} Birr Only"),
-                  SizedBox(
-                    width: Dimensions.Width5 / 2,
-                  ),
-                  //the add to cart Button(
-                  GestureDetector(
-                    onTap: () {
-                      // productController.addItem(recomendedProduct);
-                      cartController.addToHistory();
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          top: Dimensions.Height20,
-                          bottom: Dimensions.Height20,
-                          left: Dimensions.Width20,
-                          right: Dimensions.Width20),
-                      decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radiusSize20),
-                      ),
-                      child: BigText(
-                        text: " Check Out!",
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ): Container(),
+              child: cartController.getItems.isNotEmpty
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: Dimensions.Width5 / 2,
+                        ),
+                        BigText(
+                            text: "${cartController.totalAmount} Birr Only"),
+                        SizedBox(
+                          width: Dimensions.Width5 / 2,
+                        ),
+                        //the add to cart Button(
+                        GestureDetector(
+                          onTap: () {
+                            // productController.addItem(recomendedProduct);
+                            if (Get.find<AuthController>().userHaveLoggedIn()) {
+                              print("got token in cart button");
+                              cartController.addToHistory();
+                            } else {
+                              Get.toNamed(RouteHelper.getSignIn());
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: Dimensions.Height20,
+                                bottom: Dimensions.Height20,
+                                left: Dimensions.Width20,
+                                right: Dimensions.Width20),
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusSize20),
+                            ),
+                            child: BigText(
+                              text: " Check Out!",
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(),
             ),
           ],
         );

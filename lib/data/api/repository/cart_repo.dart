@@ -37,7 +37,6 @@ class CartRepo {
     sharedPreferences.setStringList(AppConstants.CART_LIST, cart);
 
     // print(sharedPreferences.getStringList(AppConstants.CART_LIST));
-   
   }
 
   List<CartModel> getCartList() {
@@ -48,7 +47,6 @@ class CartRepo {
       print("Inside getCartList $carts");
     }
     List<CartModel> cartList = [];
-
 
     for (var element in carts) {
       cartList.add(CartModel.fromJson(jsonDecode(element)));
@@ -98,5 +96,11 @@ class CartRepo {
   void removeCart() {
     cart = [];
     sharedPreferences.remove(AppConstants.CART_LIST);
+  }
+
+  void clearCartHistory() {
+    removeCart();
+    cartHistory = [];
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
   }
 }
