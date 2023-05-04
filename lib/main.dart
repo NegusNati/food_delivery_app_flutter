@@ -11,12 +11,15 @@ import '/helper/dependencies.dart' as dependencies;
 import 'coltrollers/cart_controller.dart';
 import 'coltrollers/recomended_products_controller.dart';
 import 'pages/home/main_page.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 Future<void> main() async {
   // to ensure the dependencies are first initalized
   WidgetsFlutterBinding.ensureInitialized();
   // initalize the dependencies
   await dependencies.init();
+  await FlutterConfig.loadEnvVariables();
+
   //run the app
   runApp(const MyApp());
 }
