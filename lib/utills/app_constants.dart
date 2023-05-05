@@ -4,7 +4,7 @@ class AppConstants {
 
   // static const String BASE_URL = "http://mvs.bslmeiyu.com";
   // http://127.0.0.1:8000/api/v1/products/popular/
-  static const String BASE_URL = "http://10.194.109.18:8000";
+  static const String BASE_URL = "http://10.194.109.19:8000";
   static const String POPULAR_PRODUCT_URI = "/api/v1/products/popular";
   static const String RECOMMENDED_PRODUCT_URI = "/api/v1/products/recommended";
   static const String DRINKS_URI = "/api/v1/products/drinks";
@@ -16,6 +16,11 @@ class AppConstants {
   static const String REGISTRATION_URI = "/api/v1/auth/register";
   static const String LOGIN_URI = "/api/v1/auth/login";
   static const String USER_INFO = "/api/v1/customer/info";
+ 
+
+//
+  static const String USER_ADDRESS = "user_address";
+  static const String GEOCODE_URI = "/api/v1/config/geocode-api";
 
 
 

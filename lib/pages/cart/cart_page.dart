@@ -9,6 +9,7 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
+import '../../coltrollers/location_controller.dart';
 import '../../coltrollers/popular_product_controller.dart';
 import '../../routes/route_helper.dart';
 import '../../utills/colors.dart';
@@ -315,8 +316,14 @@ class CartPage extends StatelessWidget {
                           onTap: () {
                             // productController.addItem(recomendedProduct);
                             if (Get.find<AuthController>().userHaveLoggedIn()) {
-                              print("got token in cart button");
-                              cartController.addToHistory();
+                              // print("got token in cart button");
+                              // cartController.addToHistory();
+
+                              if (Get.find<LocationController>()
+                                  .addressList
+                                  .isEmpty) {
+                                Get.toNamed(RouteHelper.getAddAddressPage());
+                              }
                             } else {
                               Get.toNamed(RouteHelper.getSignIn());
                             }
