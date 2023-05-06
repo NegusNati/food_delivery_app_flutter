@@ -8,6 +8,7 @@ import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../coltrollers/location_controller.dart';
 import '../../coltrollers/popular_product_controller.dart';
@@ -318,6 +319,9 @@ class CartPage extends StatelessWidget {
                             if (Get.find<AuthController>().userHaveLoggedIn()) {
                               // print("got token in cart button");
                               // cartController.addToHistory();
+                              Future<void> requestPermission() async {
+                                await Permission.location.request();
+                              }
 
                               if (Get.find<LocationController>()
                                   .addressList

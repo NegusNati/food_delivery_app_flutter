@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../coltrollers/auth_controller.dart';
 import '../../coltrollers/location_controller.dart';
 import '../../coltrollers/user_controller.dart';
@@ -26,6 +27,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   void initState() {
     super.initState();
+    
     _isLogged = Get.find<AuthController>().userHaveLoggedIn();
     if (_isLogged && Get.find<UserController>().userModel == null) {
       Get.find<UserController>().getUserInfo();

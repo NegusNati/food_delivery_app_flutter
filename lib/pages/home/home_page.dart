@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/account/account_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../utills/colors.dart';
-import '../auth/sign_in.dart';
-import '../auth/sign_up_page.dart';
 import '../cart/cart_history.dart';
 import 'main_page.dart';
 
