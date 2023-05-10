@@ -4,6 +4,7 @@ import 'package:food_delivery_app/pages/home/home_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
+import '../pages/address/pick_address_map.dart';
 import '../pages/cart/cart_page.dart';
 import '../pages/detail/popular_food_detail.dart';
 import '../pages/detail/recomended_food_detail.dart';
@@ -16,6 +17,7 @@ class RouteHelper {
   static const String splashPage = "/splash-page";
   static const String signIn = "/sign-in";
   static const String addAddress = "/add-address";
+  static const String pickAddressMap = "/pick-address-map";
 
   //best way by far for data passing
   static String getInital() => inital;
@@ -26,10 +28,17 @@ class RouteHelper {
   static String getSplashPage() => splashPage;
   static String getSignIn() => signIn;
   static String getAddAddressPage() => addAddress;
+  static String pickAddressMapPage() => pickAddressMap;
 
   static List<GetPage> routes = [
-    GetPage(name: inital, page: () => const HomePage(), transition: Transition.fade),
-     GetPage(name: signIn, page: () => const SignInPage(), transition: Transition.fade),
+    GetPage(
+        name: inital,
+        page: () => const HomePage(),
+        transition: Transition.fade),
+    GetPage(
+        name: signIn,
+        page: () => const SignInPage(),
+        transition: Transition.fade),
     GetPage(
         name: popularFood,
         page: () {
@@ -43,6 +52,7 @@ class RouteHelper {
     GetPage(
         name: recomendedFood,
         page: () {
+          //passsing parameters
           var pageId = Get.parameters['pageId'];
           return RecomendedFoodDetail(pageId: int.parse(pageId!));
         },
@@ -56,18 +66,27 @@ class RouteHelper {
         //to make cool trasitions of routes
         transition: Transition.fadeIn),
     GetPage(
-        name: splashPage,
-        page: () {
-          return const SplashScreen();
-        },
-        transition: Transition.fadeIn,
-        ),
-         GetPage(
-        name: addAddress,
-        page: () {
-          return  const AddAddressPage();
-        },
-        transition: Transition.fadeIn,
-        ),
+      name: splashPage,
+      page: () {
+        return const SplashScreen();
+      },
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: addAddress,
+      page: () {
+        return const AddAddressPage();
+      },
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: pickAddressMap,
+      page: () {
+        //passing a widget
+        PickAddressMap _pickAddressMap = Get.arguments;
+        return _pickAddressMap;
+      },
+      transition: Transition.fadeIn,
+    ),
   ];
 }

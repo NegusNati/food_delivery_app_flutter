@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/pages/address/pick_address_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import '../../coltrollers/auth_controller.dart';
@@ -99,6 +100,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     GoogleMap(
                       initialCameraPosition:
                           CameraPosition(target: _initialPosition, zoom: 17),
+                      onTap: (latlang) {
+                        Get.toNamed(RouteHelper.pickAddressMapPage(), arguments: PickAddressMap(
+                          fromSignup: false,
+                          fromAddress: true,
+                          googleMapController: locationController.mapController,
+                        ));
+                      },
                       zoomControlsEnabled: false,
                       compassEnabled: false,
                       indoorViewEnabled: true,
@@ -108,7 +116,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         locationController.updatePosition(
                             _cameraPosition, true);
                       },
-                      onCameraMove: ((position) {
+                      onCameraMove: ((CameraPosition position) {
                         _cameraPosition = position;
                       }),
                       onMapCreated: (GoogleMapController controller) {
