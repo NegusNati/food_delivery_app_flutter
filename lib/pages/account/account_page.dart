@@ -11,6 +11,8 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/custom_loader.dart';
 import 'package:get/get.dart';
 
+import '../../coltrollers/location_controller.dart';
+
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
@@ -57,7 +59,8 @@ class AccountPage extends StatelessWidget {
                                     backgroundColor: AppColors.mainColor,
                                     iconColor: Colors.white,
                                   ),
-                                  bigText: BigText(text: userController.userModel.name)),
+                                  bigText: BigText(
+                                      text: userController.userModel.name)),
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),
@@ -67,8 +70,8 @@ class AccountPage extends StatelessWidget {
                                     backgroundColor: Colors.greenAccent,
                                     iconColor: Colors.white,
                                   ),
-                                  bigText: BigText(text: userController
-                                  .userModel.phone)),
+                                  bigText: BigText(
+                                      text: userController.userModel.phone)),
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),
@@ -78,7 +81,8 @@ class AccountPage extends StatelessWidget {
                                     backgroundColor: Colors.blue,
                                     iconColor: Colors.white,
                                   ),
-                                  bigText: BigText(text: userController.userModel.email)),
+                                  bigText: BigText(
+                                      text: userController.userModel.email)),
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),
@@ -92,13 +96,40 @@ class AccountPage extends StatelessWidget {
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),
-                              AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.message_outlined,
-                                    backgroundColor: AppColors.mainColor,
-                                    iconColor: Colors.white,
-                                  ),
-                                  bigText: BigText(text: "Messages")),
+                              GetBuilder<LocationController>(
+                                  builder: (locationcontroller) {
+                                if (_userLoggedIn &&
+                                    locationcontroller.addressList.isEmpty) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.offNamed(
+                                          RouteHelper.getAddAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.message_outlined,
+                                          backgroundColor: AppColors.mainColor,
+                                          iconColor: Colors.white,
+                                        ),
+                                        bigText: BigText(text: "Location ")),
+                                  );
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.offNamed(
+                                          RouteHelper.getAddAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.message_outlined,
+                                          backgroundColor: AppColors.mainColor,
+                                          iconColor: Colors.white,
+                                        ),
+                                        bigText:
+                                            BigText(text: "Your Address ")),
+                                  );
+                                }
+                              }),
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),
@@ -110,6 +141,8 @@ class AccountPage extends StatelessWidget {
                                     Get.find<CartController>().clear();
                                     Get.find<CartController>()
                                         .clearCartHistory();
+                                    Get.find<LocationController>()
+                                        .clearAddressList();
                                     Get.offNamed(RouteHelper.getSignIn());
                                   } else {
                                     print("You have logged out");
@@ -123,26 +156,6 @@ class AccountPage extends StatelessWidget {
                                     ),
                                     bigText: BigText(text: "Log Out")),
                               ),
-                              SizedBox(
-                                height: Dimensions.Height15,
-                              ),
-                              AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.person,
-                                    backgroundColor: AppColors.mainColor,
-                                    iconColor: Colors.white,
-                                  ),
-                                  bigText: BigText(text: "Negus Nati")),
-                              SizedBox(
-                                height: Dimensions.Height15,
-                              ),
-                              AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.person,
-                                    backgroundColor: AppColors.mainColor,
-                                    iconColor: Colors.white,
-                                  ),
-                                  bigText: BigText(text: "Negus Nati")),
                               SizedBox(
                                 height: Dimensions.Height15,
                               ),

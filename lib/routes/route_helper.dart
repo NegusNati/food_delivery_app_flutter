@@ -28,7 +28,7 @@ class RouteHelper {
   static String getAddAddressPage() => addAddress;
 
   static List<GetPage> routes = [
-    GetPage(name: inital, page: () => const HomePage()),
+    GetPage(name: inital, page: () => const HomePage(), transition: Transition.fade),
      GetPage(name: signIn, page: () => const SignInPage(), transition: Transition.fade),
     GetPage(
         name: popularFood,

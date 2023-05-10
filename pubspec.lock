@@ -320,14 +320,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.5"
-  permission:
-    dependency: "direct main"
-    description:
-      name: permission
-      sha256: "43a04a07f06fa2bc2d2b4aeb2d16de419e5893abe7b63f979b71c9b11b7df60e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.7"
   permission_handler:
     dependency: "direct main"
     description:
