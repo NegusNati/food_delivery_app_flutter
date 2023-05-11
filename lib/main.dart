@@ -6,6 +6,7 @@ import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 import 'package:food_delivery_app/pages/cart/cart_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/utills/colors.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
 import 'coltrollers/cart_controller.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
+
+              primaryColor: AppColors.mainColor,
               primarySwatch: Colors.blue,
             ),
             // home:const SignInPage(),

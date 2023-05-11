@@ -18,6 +18,7 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<LocationController>().getAddressList();
     bool _userLoggedIn = Get.find<AuthController>().userHaveLoggedIn();
     if (_userLoggedIn) {
       Get.find<UserController>().getUserInfo();

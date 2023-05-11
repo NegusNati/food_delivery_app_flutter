@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle _flatButton = TextButton.styleFrom(
+    final ButtonStyle flatButton = TextButton.styleFrom(
       backgroundColor: onPressed == null
           ? Theme.of(context).disabledColor
           : transparent
@@ -48,9 +48,11 @@ class CustomButton extends StatelessWidget {
         width: width ?? Dimensions.screenWidth,
         height: height ?? 50,
         child: TextButton(
-          onPressed: () {},
-          style: _flatButton,
-          child: Row(children: [
+          onPressed: onPressed,
+          style: flatButton,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
             icon != null
                 ? Padding(
                     padding: EdgeInsets.only(
@@ -63,7 +65,7 @@ class CustomButton extends StatelessWidget {
                           : Theme.of(context).cardColor,
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             Text(
               buttonText,
               style: TextStyle(

@@ -39,12 +39,20 @@ class LocationController extends GetxController implements GetxService {
   late GoogleMapController _mapController;
   GoogleMapController get mapController => _mapController;
 
-  final bool _updateAddressData = true;
+  bool _updateAddressData = true;
   final bool _changeAddress = true;
 
   bool get loading => _loading;
   Position get position => _position;
   Position get pickPosition => _pickedPosition;
+
+  // for Service zone purpose only
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  bool _inZone = false;
+  bool get inZone => _inZone;
+  bool _buttonDisabled = true;
+  bool get buttonDisabled => _buttonDisabled;
 
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
@@ -76,6 +84,13 @@ class LocationController extends GetxController implements GetxService {
               speed: 1,
               speedAccuracy: 1);
         }
+        //to disable the Pick Address button using Zone
+        ResponseModel _responseModel = await getZone(
+            position.target.latitude.toString(),
+            position.target.longitude.toString(),
+            false);
+        //if button is false, we are in zone
+        _buttonDisabled = !_responseModel.isSuccess;
         if (_changeAddress) {
           String address = await getAddressFromGeocode(
               LatLng(position.target.latitude, position.target.longitude));
@@ -89,6 +104,8 @@ class LocationController extends GetxController implements GetxService {
 
       _loading = false;
       update();
+    } else {
+      _updateAddressData = true;
     }
   }
 
@@ -176,5 +193,53 @@ class LocationController extends GetxController implements GetxService {
 
   String getUserAddressFromLocalStorage() {
     return locationRepo.getUserAddress();
+  }
+
+  void setAddressData() {
+    //from the wide page
+    _position = _pickedPosition;
+    _placemark = _pickPlacemark;
+    _updateAddressData = false;
+    update();
+  }
+
+  Future<ResponseModel> getZone(String lat, String lng, bool markerLoad) async {
+    late ResponseModel _responseModel;
+
+    if (markerLoad) {
+      _loading = true;
+    } else {
+      _isLoading = true;
+    }
+    update();
+    Response _response = await locationRepo.getZone(lat, lng);
+    if (_response.statusCode == 200) {
+      _inZone = true;
+      _responseModel =
+          ResponseModel(true, _response.body["zone_id"].toString());
+    } else {
+      _inZone = false;
+      _responseModel = ResponseModel(true, _response.statusText!);
+    }
+    if (markerLoad) {
+      _loading = false;
+    } else {
+      _isLoading = false;
+    }
+
+    // await Future.delayed(Duration(seconds: 2), () {
+    //   _responseModel = ResponseModel(true, "success");
+
+    //   if (markerLoad) {
+    //     _loading = false;
+    //   } else {
+    //     _isLoading = false;
+    //   }
+    // _inZone = true;
+    //   update();
+    // });
+    update();
+    print("status code: " + _response.statusCode.toString());
+    return _responseModel;
   }
 }

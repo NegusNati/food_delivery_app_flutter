@@ -107,11 +107,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           googleMapController: locationController.mapController,
                         ));
                       },
+                      
+                      
                       zoomControlsEnabled: false,
                       compassEnabled: false,
                       indoorViewEnabled: true,
                       mapToolbarEnabled: false,
                       myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
                       onCameraIdle: () {
                         locationController.updatePosition(
                             _cameraPosition, true);
