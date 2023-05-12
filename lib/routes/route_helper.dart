@@ -1,6 +1,8 @@
+import 'package:food_delivery_app/models/order_model.dart';
 import 'package:food_delivery_app/pages/address/add_address_page.dart';
 import 'package:food_delivery_app/pages/auth/sign_in.dart';
 import 'package:food_delivery_app/pages/home/home_page.dart';
+import 'package:food_delivery_app/pages/payment/payment_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +20,8 @@ class RouteHelper {
   static const String signIn = "/sign-in";
   static const String addAddress = "/add-address";
   static const String pickAddressMap = "/pick-address-map";
+  static const String payment = "/payment";
+  static const String orderSuccess = "/order-successful";
 
   //best way by far for data passing
   static String getInital() => inital;
@@ -29,6 +33,8 @@ class RouteHelper {
   static String getSignIn() => signIn;
   static String getAddAddressPage() => addAddress;
   static String pickAddressMapPage() => pickAddressMap;
+  static String getPaymentPage() => payment;
+  static String getOrderSuccessRoute() => orderSuccess;
 
   static List<GetPage> routes = [
     GetPage(
@@ -83,10 +89,30 @@ class RouteHelper {
       name: pickAddressMap,
       page: () {
         //passing a widget
-        PickAddressMap _pickAddressMap = Get.arguments;
-        return _pickAddressMap;
+        PickAddressMap pickAddressMap = Get.arguments;
+        return pickAddressMap;
       },
       transition: Transition.fadeIn,
     ),
+
+     GetPage(
+      name: payment,
+      page: () {
+      
+        return PaymentPage(orderModel: 
+        OrderModel(id: int.parse(Get.parameters['id']!), userId: int.parse(Get.parameters['user']!))
+        );
+      },
+      transition: Transition.fadeIn,
+    ),
+
+    //  GetPage(
+    //   name: orderSuccess,
+    //   page: () {
+      
+    //     // return OrderSuccess(),
+    //   },
+    //   transition: Transition.fadeIn,
+    // ),
   ];
 }
