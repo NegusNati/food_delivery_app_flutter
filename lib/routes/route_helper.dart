@@ -6,6 +6,7 @@ import 'package:food_delivery_app/pages/payment/payment_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
+import '../models/user_model.dart';
 import '../pages/address/pick_address_map.dart';
 import '../pages/cart/cart_page.dart';
 import '../pages/detail/popular_food_detail.dart';
@@ -33,7 +34,7 @@ class RouteHelper {
   static String getSignIn() => signIn;
   static String getAddAddressPage() => addAddress;
   static String pickAddressMapPage() => pickAddressMap;
-  static String getPaymentPage() => payment;
+  static String getPaymentPage(String id, int userId ) => '$payment?id=$id&userId=$userId';
   static String getOrderSuccessRoute() => orderSuccess;
 
   static List<GetPage> routes = [
@@ -100,7 +101,7 @@ class RouteHelper {
       page: () {
       
         return PaymentPage(orderModel: 
-        OrderModel(id: int.parse(Get.parameters['id']!), userId: int.parse(Get.parameters['user']!))
+        OrderModel(id: int.parse(Get.parameters['id']!), userId: int.parse(Get.parameters['userId']!))
         );
       },
       transition: Transition.fadeIn,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/auth_controller.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
+import 'package:food_delivery_app/coltrollers/user_controller.dart';
 import 'package:food_delivery_app/pages/cart/no_cart.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
@@ -328,7 +329,8 @@ class CartPage extends StatelessWidget {
                                   .isEmpty) {
                                 Get.toNamed(RouteHelper.getAddAddressPage());
                               } else {
-                                Get.offNamed(RouteHelper.getInital());
+                                // Get.offNamed(RouteHelper.getInital());
+                                Get.offNamed(RouteHelper.getPaymentPage("100001", Get.find<UserController>().userModel.id!));
                               }
                             } else {
                               Get.toNamed(RouteHelper.getSignIn());
