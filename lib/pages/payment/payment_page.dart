@@ -58,7 +58,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   initialUrl: selectedUrl,
                   gestureNavigationEnabled: true,
 
-                  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E233 Safari/601.1',
+                  userAgent: 'random',
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.future.then((value) => controllerGlobal = value);
                     _controller.complete(webViewController);

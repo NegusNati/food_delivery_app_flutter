@@ -14,6 +14,7 @@ import 'coltrollers/recomended_products_controller.dart';
 import 'pages/home/main_page.dart';
 import 'package:flutter_config/flutter_config.dart';
 
+
 Future<void> main() async {
   // to ensure the dependencies are first initalized
   WidgetsFlutterBinding.ensureInitialized();
