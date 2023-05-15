@@ -11,6 +11,7 @@ import '../../routes/route_helper.dart';
 import '../../utills/app_constants.dart';
 import '../../utills/colors.dart';
 import '../../utills/dimensions.dart';
+import '../../widgets/show_custom_snackbar.dart';
 
 class PaymentPage extends StatefulWidget {
   final OrderModel orderModel;
@@ -130,14 +131,21 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<bool> _exitApp(BuildContext context) async {
     if (await controllerGlobal.canGoBack()) {
       controllerGlobal.goBack();
+      Get.snackbar(
+          "Fast Delivery!", "Your order will will be there in just 7 minutes.",
+          duration: const Duration(seconds: 6),
+          backgroundColor: Colors.lightGreen);
+
+      // Get.find<CartController>().clear();
+      // Get.find<CartController>().removeCartSharedPreference();
       Get.find<CartController>().addToHistory();
       Get.offAllNamed(RouteHelper.getInital());
-
       return Future.value(false);
     } else {
       print("app exited");
+      showCustomSnackBar("So, no order will be delivered, sorry", title: "No payment provided!");
+      Get.offAllNamed(RouteHelper.getInital());
       return true;
-      // return Get.dialog(PaymentFailedDialog(orderID: widget.orderModel.id.toString()));
     }
   }
 }

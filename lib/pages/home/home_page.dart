@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/account/account_page.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../coltrollers/auth_controller.dart';
+import '../../coltrollers/user_controller.dart';
 import '../../utills/colors.dart';
 import '../cart/cart_history.dart';
 import 'main_page.dart';
@@ -83,9 +86,14 @@ class _HomePageState extends State<HomePage> {
   // }
 
   List<Widget> _buildScreens() {
-    return [const MainPage(), Container(
-      child: const Center(child: Text("2nd page")),
-    ), const CartHistory(), const AccountPage()];
+    return [
+      const MainPage(),
+      Container(
+        child: const Center(child: Text("2nd page")),
+      ),
+      const CartHistory(),
+      const AccountPage()
+    ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -119,6 +127,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+      bool userLoggedIn = Get.find<AuthController>().userHaveLoggedIn();
+    if (userLoggedIn) {
+      Get.find<UserController>().getUserInfo();
+    }
     return PersistentTabView(
       context,
       controller: _controller,

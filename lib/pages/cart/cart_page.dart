@@ -342,8 +342,8 @@ class CartPage extends StatelessWidget {
                                     address: 'WKU, Gubre',
                                     cart: cart,
                                     orderAmount: 100.0,
-                                    contactPersonName: user!.name,
-                                    contactPersonNumber: user!.phone,
+                                    contactPersonName: user.name,
+                                    contactPersonNumber: user.phone,
                                     distance: 18.0,
                                     orderNote: 'yes order, duh',
                                     scheduleAt: 'hgs',
@@ -386,11 +386,14 @@ class CartPage extends StatelessWidget {
 
   void _callBack(bool isSuccess, String message, String orderId) {
     if (isSuccess) {
-      print(" Order Was success ");
+      Get.snackbar(
+          "Order in the Oven", "Just waiting for you to finish up here",
+          duration: const Duration(seconds: 5));
+      // showCustomSnackBar("Order in the Oven, waiting for you");
       Get.offNamed(RouteHelper.getPaymentPage(
-          orderId, Get.find<UserController>().userModel!.id));
+          orderId, Get.find<UserController>().userModel.id));
     } else {
-        print(" was not success? ");
+      print(" was not success? ");
       showCustomSnackBar(message);
     }
   }
