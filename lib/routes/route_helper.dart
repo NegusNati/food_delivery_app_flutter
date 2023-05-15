@@ -11,6 +11,7 @@ import '../pages/address/pick_address_map.dart';
 import '../pages/cart/cart_page.dart';
 import '../pages/detail/popular_food_detail.dart';
 import '../pages/detail/recomended_food_detail.dart';
+import '../pages/order/order_success_page.dart';
 
 class RouteHelper {
   static const String inital = "/";
@@ -34,8 +35,10 @@ class RouteHelper {
   static String getSignIn() => signIn;
   static String getAddAddressPage() => addAddress;
   static String pickAddressMapPage() => pickAddressMap;
-  static String getPaymentPage(String id, int userId ) => '$payment?id=$id&userId=$userId';
-  static String getOrderSuccessRoute() => orderSuccess;
+  static String getPaymentPage(String id, int userId) =>
+      '$payment?id=$id&userId=$userId';
+  static String getOrderSuccessRoute(String orderId, String status) =>
+      '$orderSuccess?id=$orderId&status=$status';
 
   static List<GetPage> routes = [
     GetPage(
@@ -68,7 +71,7 @@ class RouteHelper {
     GetPage(
         name: cartPage,
         page: () {
-          return const CartPage();
+          return  CartPage();
         },
         //to make cool trasitions of routes
         transition: Transition.fadeIn),
@@ -95,25 +98,25 @@ class RouteHelper {
       },
       transition: Transition.fadeIn,
     ),
-
-     GetPage(
+    GetPage(
       name: payment,
       page: () {
-      
-        return PaymentPage(orderModel: 
-        OrderModel(id: int.parse(Get.parameters['id']!), userId: int.parse(Get.parameters['userId']!))
+        return PaymentPage(
+            orderModel: OrderModel(
+                id: int.parse(Get.parameters['id']!),
+                userId: int.parse(Get.parameters['userId']!)));
+      },
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: orderSuccess,
+      page: () {
+        return OrderSuccessPage(
+          orderId: Get.parameters['id']!,
+          status: Get.parameters['status'].toString().contains("success")? 1: 0,
         );
       },
       transition: Transition.fadeIn,
     ),
-
-    //  GetPage(
-    //   name: orderSuccess,
-    //   page: () {
-      
-    //     // return OrderSuccess(),
-    //   },
-    //   transition: Transition.fadeIn,
-    // ),
   ];
 }

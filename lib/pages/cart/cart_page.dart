@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/auth_controller.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
+import 'package:food_delivery_app/coltrollers/order_controller.dart';
 import 'package:food_delivery_app/coltrollers/recomended_products_controller.dart';
 import 'package:food_delivery_app/coltrollers/user_controller.dart';
 import 'package:food_delivery_app/pages/cart/no_cart.dart';
 import 'package:food_delivery_app/utills/app_constants.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:food_delivery_app/widgets/show_custom_snackbar.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../coltrollers/location_controller.dart';
 import '../../coltrollers/popular_product_controller.dart';
+import '../../models/place_order_model.dart';
 import '../../routes/route_helper.dart';
 import '../../utills/colors.dart';
 import '../../widgets/app_icon.dart';
@@ -329,8 +332,26 @@ class CartPage extends StatelessWidget {
                                   .isEmpty) {
                                 Get.toNamed(RouteHelper.getAddAddressPage());
                               } else {
-                                // Get.offNamed(RouteHelper.getInital());
-                                Get.offNamed(RouteHelper.getPaymentPage("100002", Get.find<UserController>().userModel!.id!));
+                                //let get the user info
+                                var location = Get.find<LocationController>()
+                                    .getUserAddress();
+                                var cart = Get.find<CartController>()
+                                    .getItems; //as a list
+                                var user = Get.find<UserController>().userModel;
+                                PlaceOrderBody placeOrder = PlaceOrderBody(
+                                    address: 'WKU, Gubre',
+                                    cart: cart,
+                                    orderAmount: 100.0,
+                                    contactPersonName: user!.name,
+                                    contactPersonNumber: user!.phone,
+                                    distance: 18.0,
+                                    orderNote: 'yes order, duh',
+                                    scheduleAt: 'hgs',
+                                    latitude: location.latitude.toString(),
+                                    longitude: location.longitude.toString());
+
+                                Get.find<OrderController>()
+                                    .placeOrder(placeOrder, _callBack);
                               }
                             } else {
                               Get.toNamed(RouteHelper.getSignIn());
@@ -361,5 +382,16 @@ class CartPage extends StatelessWidget {
         );
       }),
     );
+  }
+
+  void _callBack(bool isSuccess, String message, String orderId) {
+    if (isSuccess) {
+      print(" Order Was success ");
+      Get.offNamed(RouteHelper.getPaymentPage(
+          orderId, Get.find<UserController>().userModel!.id));
+    } else {
+        print(" was not success? ");
+      showCustomSnackBar(message);
+    }
   }
 }

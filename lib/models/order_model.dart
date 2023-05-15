@@ -90,7 +90,6 @@ class OrderModel {
     data['id'] = id;
     data['user_id'] = userId;
     data['order_amount'] = orderAmount;
-
     data['payment_status'] = paymentStatus;
     data['total_tax_amount'] = totalTaxAmount;
     data['order_note'] = orderNote;

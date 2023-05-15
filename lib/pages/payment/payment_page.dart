@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../coltrollers/cart_controller.dart';
 import '../../models/order_model.dart';
 import '../../routes/route_helper.dart';
 import '../../utills/app_constants.dart';
@@ -12,7 +14,7 @@ import '../../utills/dimensions.dart';
 
 class PaymentPage extends StatefulWidget {
   final OrderModel orderModel;
-  PaymentPage({required this.orderModel});
+  const PaymentPage({super.key, required this.orderModel});
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -23,33 +25,36 @@ class _PaymentPageState extends State<PaymentPage> {
   double value = 0.0;
   bool _canRedirect = true;
   bool _isLoading = true;
-  final Completer<WebViewController> _controller = Completer<WebViewController>();
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
   late WebViewController controllerGlobal;
 
   @override
   void initState() {
     super.initState();
-    selectedUrl = '${AppConstants.BASE_URL}/payment-mobile?customer_id=${widget.orderModel.userId}&order_id=${widget.orderModel.id}';
+    selectedUrl =
+        '${AppConstants.BASE_URL}/payment-mobile?customer_id=${widget.orderModel.userId}&order_id=${widget.orderModel.id}';
     //selectedUrl="https://mvs.bslmeiyu.com";
-   // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _exitApp(context),
+      // onWillPop: () => Get.toNamed(RouteHelper.getAddAddressPage());
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Payment"),
+          title: const Text("Payment"),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed:()=> _exitApp(context),
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => _exitApp(context),
           ),
           backgroundColor: AppColors.mainColor,
         ),
         body: Center(
-          child: Container(
+          child: SizedBox(
             width: Dimensions.screenWidth,
             child: Stack(
               children: [
@@ -57,10 +62,10 @@ class _PaymentPageState extends State<PaymentPage> {
                   javascriptMode: JavascriptMode.unrestricted,
                   initialUrl: selectedUrl,
                   gestureNavigationEnabled: true,
-
                   userAgent: 'random',
                   onWebViewCreated: (WebViewController webViewController) {
-                    _controller.future.then((value) => controllerGlobal = value);
+                    _controller.future
+                        .then((value) => controllerGlobal = value);
                     _controller.complete(webViewController);
                     //_controller.future.catchError(onError)
                   },
@@ -72,9 +77,8 @@ class _PaymentPageState extends State<PaymentPage> {
                     setState(() {
                       _isLoading = true;
                     });
-                    print("printing urls "+url.toString());
+                    print("printing urls $url");
                     _redirect(url);
-
                   },
                   onPageFinished: (String url) {
                     print('Page finished loading: $url');
@@ -82,12 +86,15 @@ class _PaymentPageState extends State<PaymentPage> {
                       _isLoading = false;
                     });
                     _redirect(url);
-
                   },
                 ),
-                _isLoading ? Center(
-                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-                ) : SizedBox.shrink(),
+                _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Theme.of(context).primaryColor)),
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
           ),
@@ -98,18 +105,23 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void _redirect(String url) {
     print("redirect");
-    if(_canRedirect) {
-      bool _isSuccess = url.contains('success') && url.contains(AppConstants.BASE_URL);
-      bool _isFailed = url.contains('fail') && url.contains(AppConstants.BASE_URL);
-      bool _isCancel = url.contains('cancel') && url.contains(AppConstants.BASE_URL);
-      if (_isSuccess || _isFailed || _isCancel) {
+    if (_canRedirect) {
+      bool isSuccess =
+          url.contains('success') && url.contains(AppConstants.BASE_URL);
+      bool isFailed =
+          url.contains('fail') && url.contains(AppConstants.BASE_URL);
+      bool isCancel =
+          url.contains('cancel') && url.contains(AppConstants.BASE_URL);
+      if (isSuccess || isFailed || isCancel) {
         _canRedirect = false;
       }
-      if (_isSuccess) {
-        // Get.offNamed(RouteHelper.getOrderSuccessRoute(widget.orderModel.id.toString(), 'success'));
-      } else if (_isFailed || _isCancel) {
-        // Get.offNamed(RouteHelper.getOrderSuccessRoute(widget.orderModel.id.toString(), 'fail'));
-      }else{
+      if (isSuccess) {
+        Get.offNamed(RouteHelper.getOrderSuccessRoute(
+            widget.orderModel.id.toString(), 'success'));
+      } else if (isFailed || isCancel) {
+        Get.offNamed(RouteHelper.getOrderSuccessRoute(
+            widget.orderModel.id.toString(), 'fail'));
+      } else {
         print("Encountered problem");
       }
     }
@@ -118,12 +130,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<bool> _exitApp(BuildContext context) async {
     if (await controllerGlobal.canGoBack()) {
       controllerGlobal.goBack();
+      Get.find<CartController>().clear();
+      Get.offAllNamed(RouteHelper.getInital());
+
       return Future.value(false);
     } else {
       print("app exited");
       return true;
-     // return Get.dialog(PaymentFailedDialog(orderID: widget.orderModel.id.toString()));
+      // return Get.dialog(PaymentFailedDialog(orderID: widget.orderModel.id.toString()));
     }
   }
-
 }
