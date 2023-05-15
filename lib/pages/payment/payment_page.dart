@@ -130,7 +130,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<bool> _exitApp(BuildContext context) async {
     if (await controllerGlobal.canGoBack()) {
       controllerGlobal.goBack();
-      Get.find<CartController>().clear();
+      Get.find<CartController>().addToHistory();
       Get.offAllNamed(RouteHelper.getInital());
 
       return Future.value(false);
