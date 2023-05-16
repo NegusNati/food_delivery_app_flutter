@@ -15,6 +15,7 @@ double heightIcon16Factor = 56.21;
 double heightfont26Factor = 34.59;
 double heightBottom120Factor = 7.49;
 double heightFont16Factor = 56.21;
+double heightFont12Factor = 60.21;
 
 class Dimensions {
   static double screenHeight = Get.height;
@@ -41,6 +42,7 @@ class Dimensions {
 //font size
   static double fontSize20 = screenHeight / height20Factor;
   static double fontSize16 = screenHeight / heightFont16Factor;
+  static double fontSize12 = screenHeight / heightFont12Factor;
   static double fontSize26 = screenHeight / heightfont26Factor;
 
   //rddius size

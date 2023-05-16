@@ -19,6 +19,7 @@ class AppConstants {
  
 //orders
   static const String PLACE_ORDER_URI = "/api/v1/customer/order/place";
+  static const String GET_ORDER_LIST_URI = "/api/v1/customer/order/list";
 
 
 

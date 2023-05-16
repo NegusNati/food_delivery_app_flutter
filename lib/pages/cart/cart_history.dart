@@ -7,6 +7,7 @@ import 'package:food_delivery_app/pages/cart/no_cart.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
+import 'package:food_delivery_app/utills/styles.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
@@ -62,28 +63,41 @@ class CartHistory extends StatelessWidget {
       return BigText(text: outputDate);
     }
 
+
+
+    //  Container(
+    //         color: AppColors.mainColor,
+    //         width: double.maxFinite,
+    //         height: Dimensions.Height20 * 4.3,
+    //         padding: EdgeInsets.only(
+    //             top: Dimensions.Height20, right: Dimensions.Width5),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //           children: [
+    //             Text("Cart History", style:robotoMedium.copyWith(fontSize: Dimensions.fontSize20 + 2, color: Colors.white)),
+    //             AppIcon(
+    //               icon: Icons.shopping_cart_checkout_sharp,
+    //               iconColor: Colors.white,
+    //               backgroundColor: AppColors.mainColor,
+    //               newSize: Dimensions.fontSize26,
+    //             ),
+    //           ],
+    //         ),
+    //       )
+
     return Scaffold(
+        appBar: AppBar(
+          leading:  Icon(Icons.shopping_cart_checkout_sharp),
+        centerTitle: true,
+        title: const Text("Cart History"),
+        backgroundColor: AppColors.mainColor,
+      ),
+
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+
         children: [
-          Container(
-            color: AppColors.mainColor,
-            width: double.maxFinite,
-            height: Dimensions.Height20 * 4,
-            padding: EdgeInsets.only(
-                top: Dimensions.Height20, right: Dimensions.Width5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BigText(text: "Cart History", color: Colors.white),
-                AppIcon(
-                  icon: Icons.shopping_cart_checkout_sharp,
-                  iconColor: Colors.white,
-                  backgroundColor: AppColors.mainColor,
-                  newSize: Dimensions.fontSize26,
-                ),
-              ],
-            ),
-          ),
+         
           GetBuilder<CartController>(builder: (cartController) {
             return cartController.getCartHistoryList().isNotEmpty
                 ? Expanded(
@@ -235,20 +249,19 @@ class CartHistory extends StatelessWidget {
                       ),
                     ),
                   )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: Dimensions.Height30,
-                      ),
-                      const NoCartPage(
-                        text: "You have no History Cart",
-                        imgPath: "assets/image/empty_box.png",
-                      ),
-                      SmallText(text: "Purchase some items to get History "),
-                    ],
-                  );
+                : Center(
+                  child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const NoCartPage(
+                          text: "You have no History in your Cart",
+                          imgPath: "assets/image/empty_box.png",
+                        ),
+                        SmallText(text: "Purchase some items to see your History "),
+                      ],
+                    ),
+                );
           }),
         ],
       ),

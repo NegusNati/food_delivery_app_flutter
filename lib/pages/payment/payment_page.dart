@@ -138,7 +138,9 @@ class _PaymentPageState extends State<PaymentPage> {
 
       // Get.find<CartController>().clear();
       // Get.find<CartController>().removeCartSharedPreference();
-      Get.find<CartController>().addToHistory();
+
+
+      // Get.find<CartController>().addToHistory();
       Get.offAllNamed(RouteHelper.getInital());
       return Future.value(false);
     } else {

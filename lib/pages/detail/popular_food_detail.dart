@@ -66,7 +66,7 @@ class PopularFoodDetail extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios)),
                   // the cart icon

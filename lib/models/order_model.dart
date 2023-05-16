@@ -82,7 +82,7 @@ class OrderModel {
 
     deliveryAddress = (json['delivery_address'] != null
         ? AddressModel.fromJson(json['delivery_address'])
-        : null)!;
+        : null);
   }
 
   Map<String, dynamic> toJson() {

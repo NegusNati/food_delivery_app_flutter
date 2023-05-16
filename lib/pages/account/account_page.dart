@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/auth_controller.dart';
 import 'package:food_delivery_app/coltrollers/cart_controller.dart';
 import 'package:food_delivery_app/coltrollers/user_controller.dart';
+import 'package:food_delivery_app/pages/account/please_login.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
@@ -167,11 +168,7 @@ class AccountPage extends StatelessWidget {
                     ]),
                   )
                 : CustomLoader())
-            : Container(
-                child: Center(
-                  child: Text("You must log in"),
-                ),
-              );
+            : PleaseLogin();
       }),
     );
   }

@@ -60,7 +60,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Address"),
+        centerTitle: true,
+        title: const Text("Add Your Address"),
         backgroundColor: AppColors.mainColor,
       ),
       body: GetBuilder<UserController>(builder: (userController) {
@@ -101,14 +102,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       initialCameraPosition:
                           CameraPosition(target: _initialPosition, zoom: 17),
                       onTap: (latlang) {
-                        Get.toNamed(RouteHelper.pickAddressMapPage(), arguments: PickAddressMap(
-                          fromSignup: false,
-                          fromAddress: true,
-                          googleMapController: locationController.mapController,
-                        ));
+                        Get.toNamed(RouteHelper.pickAddressMapPage(),
+                            arguments: PickAddressMap(
+                              fromSignup: false,
+                              fromAddress: true,
+                              googleMapController:
+                                  locationController.mapController,
+                            ));
                       },
-                      
-                      
                       zoomControlsEnabled: false,
                       compassEnabled: false,
                       indoorViewEnabled: true,
