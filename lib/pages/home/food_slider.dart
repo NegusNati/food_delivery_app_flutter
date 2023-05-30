@@ -41,7 +41,7 @@ class _FoodSliderState extends State<FoodSlider> {
       });
     });
 
-      pageController.addListener(() {
+      pageControllerBeverage.addListener(() {
       setState(() {
  //null cheker
         _currPageValueBeverage = pageControllerBeverage.page!; //null cheker
@@ -103,17 +103,14 @@ class _FoodSliderState extends State<FoodSlider> {
           );
         }),
 
-        SizedBox(
-          height: Dimensions.Height30,
-        ),
-
+      
 
 //  for beverages
         GetBuilder<BeverageController>(builder: (popularProducts) {
           return popularProducts.isLoaded
               ? Container(
                   color: Colors.white,
-                  height: Dimensions.pageViewContainer / 2.3,
+                  height: Dimensions.pageViewContainer / 1.9,
                   child: PageView.builder(
                     controller: pageControllerBeverage,
                     itemCount: popularProducts.popularProductList.length,
@@ -147,7 +144,7 @@ class _FoodSliderState extends State<FoodSlider> {
         }),
 
         SizedBox(
-          height: Dimensions.Height30,
+          height: Dimensions.Height15,
         ),
 
         //popular Text
@@ -428,6 +425,7 @@ class _FoodSliderState extends State<FoodSlider> {
 
       matrix = Matrix4.diagonal3Values(1, currScale, 1)
         ..setTranslationRaw(0, currTrans, 0);
+
     }
 
     return Transform(
@@ -438,8 +436,8 @@ class _FoodSliderState extends State<FoodSlider> {
             Get.toNamed(RouteHelper.getBeverages(position));
           },
           child: Container(
-            height: Dimensions.pageViewImageContainer / 1.8,
-            width: Dimensions.Width30 * 3.8,
+            height: Dimensions.pageViewImageContainer / 1.7,
+            width: Dimensions.Width30 * 4,
             margin: EdgeInsets.only(
                 left: Dimensions.Width5,
                 right: Dimensions.Width5,
@@ -460,48 +458,55 @@ class _FoodSliderState extends State<FoodSlider> {
                 )),
           ),
         ),
-        // Align(
-        //   alignment: Alignment.bottomCenter,
-        //   child: Container(
-        //     height: Dimensions.pageViewTextContainer,
-        //     margin: EdgeInsets.only(
-        //         left: Dimensions.Width20 ,
-        //         right: Dimensions.Width20 ,
-        //         bottom: Dimensions.Height20 / 5),
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
-        //       color: Colors.white,
-        //       boxShadow: const [
-        //         BoxShadow(
-        //           color: Color(0xffe8e8e8),
-        //           blurRadius: 5.0,
-        //           offset: Offset(0, 5),
-        //           // spreadRadius: 0.3,
-        //         ),
-        //         BoxShadow(
-        //           color: Colors.white,
-        //           // blurRadius: 5.0,
-        //           offset: Offset(-5, 0),
-        //           // spreadRadius: 0.3,
-        //         ),
-        //         BoxShadow(
-        //           color: Colors.white,
-        //           // blurRadius: 5.0,
-        //           offset: Offset(5, 0),
-        //           // spreadRadius: 0.3,
-        //         ),
-        //       ],
-        //     ),
-        //     child: Container(
-        //       padding: EdgeInsets.only(
-        //           top: Dimensions.Height15,
-        //           left: Dimensions.Width10,
-        //           right: Dimensions.Width10,
-        //           bottom: Dimensions.Height5),
-        //       child: InfoColumn(text: popularProduct.name!),
-        //     ),
-        //   ),
-        // ),
+        Positioned(
+          right: 1,
+          top: 1,
+
+
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              height: Dimensions.pageViewTextContainer/ 1,
+              margin: EdgeInsets.only(
+                top:Dimensions.Width15 ,
+                  left: Dimensions.Width10/2 ,
+                  right: Dimensions.Width10/2 ,
+                  ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xffe8e8e8),
+                    blurRadius: 5.0,
+                    offset: Offset(0, 5),
+                    // spreadRadius: 0.3,
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    // blurRadius: 5.0,
+                    offset: Offset(-5, 0),
+                    // spreadRadius: 0.3,
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    // blurRadius: 5.0,
+                    offset: Offset(5, 0),
+                    // spreadRadius: 0.3,
+                  ),
+                ],
+              ),
+              child: Container(
+                padding: EdgeInsets.only(
+                    top: Dimensions.Height15 / 2,
+                    left: Dimensions.Width5,
+                    right: Dimensions.Width5,
+                    bottom: Dimensions.Height5 /3),
+                child: InfoColumn(text: popularProduct.name!),
+              ),
+            ),
+          ),
+        ),
       ]),
     );
   }
