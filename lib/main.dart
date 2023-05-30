@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/coltrollers/popular_product_controller.dart';
 import 'package:food_delivery_app/models/popular_model.dart';
-import 'package:food_delivery_app/pages/auth/sign_in.dart';
-import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
-import 'package:food_delivery_app/pages/cart/cart_page.dart';
-import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
 import 'coltrollers/cart_controller.dart';
 import 'coltrollers/recomended_products_controller.dart';
-import 'pages/home/main_page.dart';
 import 'package:flutter_config/flutter_config.dart';
+
+
+// Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async{
+//   print("onBackground: ${message.notification?.title}/${message.notification?.body}/""${message.notification?.titleLocKey}");
+// } 
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+
 
 
 Future<void> main() async {
@@ -21,6 +24,21 @@ Future<void> main() async {
   // initalize the dependencies
   await dependencies.init();
   await FlutterConfig.loadEnvVariables();
+
+  //  try{
+  //   if(GetPlatform.isMobile){
+  //     final RemoteMessage? remoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+  //     await NotificationHelper.initalize(flutterLocalNotificationsPlugin);
+  //     FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
+  //   }
+
+  //  }catch(e)          {
+  //   print(e.toString());
+  //  }
+
+
+
+
 
   //run the app
   runApp(const MyApp());

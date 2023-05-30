@@ -48,6 +48,9 @@ dependencies:
   flutter_config: ^2.0.0
   permission_handler: ^10.2.0
   webview_flutter: ^2.0.10
+  firebase_messaging: ^14.6.1
+  firebase_core: ^2.13.0
+  flutter_local_notifications: ^14.1.0
 
 dev_dependencies:
   flutter_test:

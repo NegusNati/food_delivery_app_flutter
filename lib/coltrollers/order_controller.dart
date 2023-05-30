@@ -34,22 +34,25 @@ class OrderController extends GetxController implements GetxService {
   Future<void> getOrderList() async {
     _isLoading = true;
     Response response = await orderRepo.getOrderList();
+
     if (response.statusCode == 200) {
       _historyOrderList = [];
       _currentOrderList = [];
       response.body.forEach((order) {
         OrderModel orderModel = OrderModel.fromJson(order);
-        if (orderModel.orderStatus == 'pendding' ||
-            orderModel.orderStatus == 'accepted' ||
+        if (orderModel.orderStatus == 'pending' ||
             orderModel.orderStatus == 'processing' ||
-            orderModel.orderStatus == 'picked_up' || orderModel.orderStatus == 'success') {
+            orderModel.orderStatus == 'picked_up' ||
+            orderModel.orderStatus == 'success') {
           _currentOrderList.add(orderModel);
-          print("maybe you have a shot");
-          
-
-        } else {
-          print("Not 200 buddy,time to start learning chinese");
+          print("maybe you have a shot xx");
+        } else if (orderModel.orderStatus == 'delivered' ||
+            orderModel.delivered == 'true') {
+          // print("Not 200 buddy,time to start learning chinese");
           _historyOrderList.add(orderModel);
+        } else {
+          print("NUll Values in order Model");
+
         }
       });
     } else {
@@ -57,9 +60,9 @@ class OrderController extends GetxController implements GetxService {
       _currentOrderList = [];
     }
     _isLoading = false;
-          print("length : " + _currentOrderList.length.toString());
-          print("length of hist : " + _historyOrderList.length.toString());
-    
+    print("length : ${_currentOrderList.length}");
+    print("length of hist : ${_historyOrderList.length}");
+
     update();
   }
 }

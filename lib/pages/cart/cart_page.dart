@@ -340,6 +340,7 @@ class CartPage extends StatelessWidget {
                                 var user = Get.find<UserController>().userModel;
                                 PlaceOrderBody placeOrder = PlaceOrderBody(
                                     address: location.address,
+                                    loc: location.loc.toString(),
                                     cart: cart,
                                     orderAmount: 100.0,
                                     contactPersonName: user.name,
@@ -390,15 +391,11 @@ class CartPage extends StatelessWidget {
       Get.find<CartController>().removeCartSharedPreference();
       Get.find<CartController>().addToHistory();
 
-
-
-
       Get.snackbar(
           "Order in the Oven", "Just waiting for you to finish up here",
           duration: const Duration(seconds: 5));
       // showCustomSnackBar("Order in the Oven, waiting for you");
 
-      
       Get.offNamed(RouteHelper.getPaymentPage(
           orderId, Get.find<UserController>().userModel.id));
     } else {

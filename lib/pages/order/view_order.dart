@@ -4,6 +4,7 @@ import 'package:food_delivery_app/utills/colors.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:food_delivery_app/utills/styles.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../coltrollers/order_controller.dart';
 import '../../models/order_model.dart';
@@ -18,9 +19,11 @@ class ViewOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var listCounter = 0;
+
     return Scaffold(
         body: GetBuilder<OrderController>(builder: (orderController) {
-      late List<OrderModel> orderList;
+      List<OrderModel> orderList = [];
 
       if (orderController.isLoading == false) {
         if (orderController.currentOrderList.isNotEmpty) {
@@ -28,6 +31,7 @@ class ViewOrder extends StatelessWidget {
               ? orderController.currentOrderList.reversed.toList()
               : orderController.historyOrderList.reversed.toList();
         }
+
         return Container(
           margin: EdgeInsets.only(top: Dimensions.Height5),
           child: SizedBox(
@@ -35,6 +39,22 @@ class ViewOrder extends StatelessWidget {
             child: ListView.builder(
                 itemCount: orderList.length,
                 itemBuilder: ((context, index) {
+                  Widget timeWidget(int index) {
+                    final dateTime =
+                        DateTime.parse(orderList[listCounter].createdAt!);
+
+                    final format = DateFormat('yyyy-MM-dd HH:mm a');
+                    final clockString = format.format(dateTime);
+
+                    return Text(
+                      clockString.toString(),
+                      style: robotoMedium.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: Dimensions.fontSize16,
+                      ),
+                    );
+                  }
+
                   return InkWell(
                     onTap: () {},
                     child: Column(
@@ -108,23 +128,13 @@ class ViewOrder extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 Icon(
-                                                  Icons.folder_open_outlined,
+                                                  Icons.calendar_month_sharp,
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                   size: Dimensions.Width20,
                                                 ),
-                                                SizedBox(
-                                                  width: Dimensions.Width5 / 2,
-                                                ),
-                                                Text(
-                                                  "Track Order",
-                                                  style: robotoMedium.copyWith(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    fontSize:
-                                                        Dimensions.fontSize16,
-                                                  ),
-                                                ),
+                                                
+                                                timeWidget(index),
                                               ],
                                             )),
                                       ),

@@ -10,6 +10,7 @@ import '../../routes/route_helper.dart';
 import '../../utills/colors.dart';
 import '../../utills/dimensions.dart';
 import '../../widgets/big_text.dart';
+import '../../widgets/show_custom_snackbar.dart';
 import '../../widgets/text_field.dart';
 
 class AddAddressPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _contactPersonName = TextEditingController();
   final TextEditingController _contactPersonNumber = TextEditingController();
+  final TextEditingController _locController = TextEditingController();
 
   late bool _isLogged;
   CameraPosition _cameraPosition =
@@ -203,6 +205,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 icon: Icons.phone,
                 color: AppColors.mainColor,
               ),
+              SizedBox(height: Dimensions.Height15),
+              TextFieldWidget(
+                textController: _locController,
+                hintText: "Building:123,Office/Dorm:123",
+                icon: Icons.location_on_sharp,
+                color: AppColors.mainColor,
+              ),
             ]),
           );
         });
@@ -234,27 +243,41 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   //the add to cart Button(
                   GestureDetector(
                     onTap: () {
-                      AddressModel addressModel = AddressModel(
-                        addressType: locationController.addressTypeList[
-                            locationController.addressTypeIndex],
-                        contactPersonName: _contactPersonName.text,
-                        contactPersonNumber: _contactPersonNumber.text,
-                        address: _addressController.text,
-                        latitude:
-                            locationController.position.latitude.toString(),
-                        longitude:
-                            locationController.position.longitude.toString(),
-                      );
-                      locationController
-                          .addAddress(addressModel)
-                          .then((response) {
-                        if (response.isSuccess) {
-                          Get.toNamed(RouteHelper.getInital());
-                          Get.snackbar("Address", "Address saved Successfully");
-                        } else {
-                          Get.snackbar("Address", "Couldn't save Address");
-                        }
-                      });
+                      String loc = _locController.text.trim();
+
+                      if (loc.isEmpty) {
+                        showCustomSnackBar("Your Building & Office/Dorm number",
+                            title: "Location");
+                      } else if (loc.length < 6) {
+                        showCustomSnackBar(
+                            "Few characters short, insert your location",
+                            title: "Loaction length");
+                      } else {
+                        AddressModel addressModel = AddressModel(
+                          addressType: locationController.addressTypeList[
+                              locationController.addressTypeIndex],
+                          contactPersonName: _contactPersonName.text,
+                          contactPersonNumber: _contactPersonNumber.text,
+                          address: _addressController.text,
+                          loc: _locController.text.toString(),
+                          latitude:
+                              locationController.position.latitude.toString(),
+                          longitude:
+                              locationController.position.longitude.toString(),
+                        );
+                        locationController
+                            .addAddress(addressModel)
+                            .then((response) {
+                          if (response.isSuccess) {
+                            // Get.toNamed(RouteHelper.getInital());
+                            Get.back();
+                            Get.snackbar(
+                                "Address", "Address saved Successfully");
+                          } else {
+                            Get.snackbar("Address", "Couldn't save Address");
+                          }
+                        });
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.only(
