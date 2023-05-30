@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../coltrollers/order_controller.dart';
 import '../../models/order_model.dart';
 import '../../widgets/custom_loader.dart';
+import '../../widgets/show_custom_snackbar.dart';
 
 class ViewOrder extends StatelessWidget {
   final bool isCurrent;
@@ -89,7 +90,9 @@ class ViewOrder extends StatelessWidget {
                                   children: [
                                     Container(
                                         decoration: BoxDecoration(
-                                          color: AppColors.mainColor,
+                                          color: isCurrent
+                                              ? Theme.of(context).disabledColor
+                                              : AppColors.mainColor,
                                           borderRadius: BorderRadius.circular(
                                               Dimensions.radiusSize5),
                                         ),
@@ -108,11 +111,19 @@ class ViewOrder extends StatelessWidget {
                                       height: Dimensions.Height5,
                                     ),
                                     InkWell(
-                                      onTap: () => null,
+                                      onTap: () {
+                                        if (orderList[index].delivered ==
+                                            "true") {
+                                          Get.snackbar('Hello',
+                                              'Order have been Delivered to you');
+                                        } else {
+                                          Get.snackbar(
+                                            'Hello',
+                                            'Order is currently in ${orderList[index].orderStatus} state',
+                                          );
+                                        }
+                                      },
                                       child: Container(
-                                        // padding: EdgeInsets.symmetric(
-                                        //     horizontal: Dimensions.Width10,
-                                        //     vertical: Dimensions.Height5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(
@@ -133,7 +144,6 @@ class ViewOrder extends StatelessWidget {
                                                       .primaryColor,
                                                   size: Dimensions.Width20,
                                                 ),
-                                                
                                                 timeWidget(index),
                                               ],
                                             )),
