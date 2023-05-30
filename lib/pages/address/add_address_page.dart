@@ -270,7 +270,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             .then((response) {
                           if (response.isSuccess) {
                             // Get.toNamed(RouteHelper.getInital());
-                          
+
                             Get.snackbar(
                                 "Address", "Address saved Successfully");
                           } else {
@@ -278,7 +278,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           }
                         });
                       }
-                        Get.back();
+                      Get.back();
                     },
                     child: Container(
                       padding: EdgeInsets.only(

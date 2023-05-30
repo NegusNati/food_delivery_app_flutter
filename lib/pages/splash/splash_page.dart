@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utills/dimensions.dart';
 import 'package:get/get.dart';
 
+import '../../coltrollers/beverage_controller.dart';
 import '../../coltrollers/cart_controller.dart';
 import '../../coltrollers/popular_product_controller.dart';
 import '../../coltrollers/recomended_products_controller.dart';
@@ -24,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _loadResource() async {
     await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<BeverageController>().getPopularProductList();
     await Get.find<RecomendedProductController>().getRecomendedrProductList();
   }
 
