@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:food_delivery_app/coltrollers/beverage_controller.dart';
 import 'package:food_delivery_app/pages/home/food_slider.dart';
 import 'package:get/get.dart';
 import '../../coltrollers/auth_controller.dart';
@@ -19,6 +20,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   Future<void> _loadResource() async {
     await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<BeverageController>().getPopularProductList();
     await Get.find<RecomendedProductController>().getRecomendedrProductList();
   }
 

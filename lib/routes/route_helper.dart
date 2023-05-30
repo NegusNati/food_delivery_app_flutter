@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../models/user_model.dart';
 import '../pages/address/pick_address_map.dart';
 import '../pages/cart/cart_page.dart';
+import '../pages/detail/beverage_detail.dart';
 import '../pages/detail/popular_food_detail.dart';
 import '../pages/detail/recomended_food_detail.dart';
 import '../pages/order/order_success_page.dart';
@@ -16,6 +17,7 @@ import '../pages/order/order_success_page.dart';
 class RouteHelper {
   static const String inital = "/";
   static const String popularFood = "/popular-food";
+  static const String beverages = "/beverages";
   static const String recomendedFood = "/recomended-food";
   static const String cartPage = "/cart-page";
   static const String splashPage = "/splash-page";
@@ -25,9 +27,12 @@ class RouteHelper {
   static const String payment = "/payment";
   static const String orderSuccess = "/order-successful";
 
+
+
   //best way by far for data passing
   static String getInital() => inital;
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
+  static String getBeverages(int pageId) => '$beverages?pageId=$pageId';
   static String getRecomendedFood(int pageId) =>
       '$recomendedFood?pageId=$pageId';
   static String getCartPage() => cartPage;
@@ -59,6 +64,17 @@ class RouteHelper {
 
         //to make cool trasitions of routes
         transition: Transition.zoom),
+
+          GetPage(
+        name: beverages,
+        page: () {
+          var pageId = Get.parameters['pageId'];
+          // Get.lazyPut(() => CartController(cartRepo: CartRepo()));
+          return BeverageDetail(pageId: int.parse(pageId!));
+        },
+
+        //to make cool trasitions of routes
+        transition: Transition.zoom),
     GetPage(
         name: recomendedFood,
         page: () {
@@ -71,7 +87,7 @@ class RouteHelper {
     GetPage(
         name: cartPage,
         page: () {
-          return  CartPage();
+          return  const CartPage();
         },
         //to make cool trasitions of routes
         transition: Transition.fadeIn),

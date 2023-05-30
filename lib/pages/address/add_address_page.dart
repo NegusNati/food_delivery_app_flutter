@@ -208,7 +208,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               SizedBox(height: Dimensions.Height15),
               TextFieldWidget(
                 textController: _locController,
-                hintText: "Building:123,Office/Dorm:123",
+                hintText: "Building/Block:123,Office/Dorm:123",
                 icon: Icons.location_on_sharp,
                 color: AppColors.mainColor,
               ),
@@ -270,7 +270,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             .then((response) {
                           if (response.isSuccess) {
                             // Get.toNamed(RouteHelper.getInital());
-                            Get.back();
+                          
                             Get.snackbar(
                                 "Address", "Address saved Successfully");
                           } else {
@@ -278,6 +278,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           }
                         });
                       }
+                        Get.back();
                     },
                     child: Container(
                       padding: EdgeInsets.only(

@@ -1,5 +1,6 @@
 import "package:dots_indicator/dots_indicator.dart";
 import "package:flutter/material.dart";
+import "package:food_delivery_app/coltrollers/beverage_controller.dart";
 import "package:food_delivery_app/coltrollers/popular_product_controller.dart";
 import "package:food_delivery_app/utills/app_constants.dart";
 import "package:food_delivery_app/utills/dimensions.dart";
@@ -12,7 +13,6 @@ import "../../routes/route_helper.dart";
 import '../../utills/colors.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
-import "../detail/popular_food_detail.dart";
 
 class FoodSlider extends StatefulWidget {
   const FoodSlider({super.key});
@@ -23,15 +23,28 @@ class FoodSlider extends StatefulWidget {
 
 class _FoodSliderState extends State<FoodSlider> {
   PageController pageController = PageController(viewportFraction: 0.8);
+  PageController pageControllerBeverage = PageController(viewportFraction: 0.8);
   var _currPageValue = 0.0;
+  var _currPageValueBeverage = 0.0;
   final double _scaleFactor = 0.8;
+  final double _scaleFactorBeverage = 0.8;
   final double _sliderHeight = Dimensions.pageViewImageContainer;
+  final double _sliderHeightBeverage = Dimensions.pageViewImageContainer;
   @override
   void initState() {
     super.initState();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!; //null cheker
+ //null cheker
+        // print("the Value is $_currPageValue");
+      });
+    });
+
+      pageController.addListener(() {
+      setState(() {
+ //null cheker
+        _currPageValueBeverage = pageControllerBeverage.page!; //null cheker
         // print("the Value is $_currPageValue");
       });
     });
@@ -42,6 +55,7 @@ class _FoodSliderState extends State<FoodSlider> {
     // TODO: implement dispose
     super.dispose();
     pageController.dispose();
+    pageControllerBeverage.dispose();
   }
 
   @override
@@ -92,6 +106,50 @@ class _FoodSliderState extends State<FoodSlider> {
         SizedBox(
           height: Dimensions.Height30,
         ),
+
+
+//  for beverages
+        GetBuilder<BeverageController>(builder: (popularProducts) {
+          return popularProducts.isLoaded
+              ? Container(
+                  color: Colors.white,
+                  height: Dimensions.pageViewContainer / 2.3,
+                  child: PageView.builder(
+                    controller: pageControllerBeverage,
+                    itemCount: popularProducts.popularProductList.length,
+                    itemBuilder: (context, position) {
+                      return _buildPageItemBverages(position,
+                          popularProducts.popularProductList[position]);
+                    },
+                  ),
+                )
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                  backgroundColor: Colors.white,
+                  strokeWidth: 4,
+                );
+        }),
+
+        GetBuilder<BeverageController>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount: popularProducts.popularProductList.isEmpty
+                ? 2
+                : popularProducts.popularProductList.length,
+            position: _currPageValueBeverage,
+            decorator: DotsDecorator(
+              size: const Size.square(5.0),
+              activeColor: AppColors.mainColor,
+              activeSize: const Size(10.0, 7.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSize5)),
+            ),
+          );
+        }),
+
+        SizedBox(
+          height: Dimensions.Height30,
+        ),
+
         //popular Text
         Container(
           margin: EdgeInsets.only(left: Dimensions.Width30),
@@ -271,7 +329,10 @@ class _FoodSliderState extends State<FoodSlider> {
           child: Container(
             height: Dimensions.pageViewImageContainer,
             width: Dimensions.Width30 * 23,
-            margin:  EdgeInsets.only(left: Dimensions.Width10, right:  Dimensions.Width10, top:  Dimensions.Height5),
+            margin: EdgeInsets.only(
+                left: Dimensions.Width10,
+                right: Dimensions.Width10,
+                top: Dimensions.Height5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
                 color: position.isEven
@@ -292,7 +353,10 @@ class _FoodSliderState extends State<FoodSlider> {
           alignment: Alignment.bottomCenter,
           child: Container(
             height: Dimensions.pageViewTextContainer,
-            margin:  EdgeInsets.only(left: Dimensions.Width20 * 2, right: Dimensions.Width20 * 2, bottom: Dimensions.Height20 / 2),
+            margin: EdgeInsets.only(
+                left: Dimensions.Width20 * 2,
+                right: Dimensions.Width20 * 2,
+                bottom: Dimensions.Height20 / 2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
               color: Colors.white,
@@ -327,6 +391,117 @@ class _FoodSliderState extends State<FoodSlider> {
             ),
           ),
         ),
+      ]),
+    );
+  }
+
+
+
+
+
+
+  //for the beverages
+
+   Widget _buildPageItemBverages(int position, ProductModal popularProduct) {
+    Matrix4 matrix = Matrix4.identity();
+    if (position == _currPageValueBeverage.floor()) {
+      var currScale = 1 - (_currPageValueBeverage - position) * (1 - _scaleFactorBeverage);
+      var currTrans = _sliderHeightBeverage * (1 - currScale) / 2;
+
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else if (position == _currPageValueBeverage.floor() + 1) {
+      var currScale =
+          _scaleFactorBeverage + (_currPageValueBeverage - position + 1) * (1 - _scaleFactorBeverage);
+      var currTrans = _sliderHeightBeverage * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else if (position == _currPageValueBeverage.floor() - 1) {
+      var currScale = 1 - (_currPageValueBeverage - position) * (1 - _scaleFactorBeverage);
+
+      var currTrans = _sliderHeightBeverage * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else {
+      var currScale = 0.8;
+      var currTrans = _sliderHeightBeverage * (1 - _scaleFactorBeverage) / 2;
+
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    }
+
+    return Transform(
+      transform: matrix,
+      child: Stack(children: [
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(RouteHelper.getBeverages(position));
+          },
+          child: Container(
+            height: Dimensions.pageViewImageContainer / 1.8,
+            width: Dimensions.Width30 * 3.8,
+            margin: EdgeInsets.only(
+                left: Dimensions.Width5,
+                right: Dimensions.Width5,
+                top: Dimensions.Height5),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
+                color: position.isEven
+                    ? const Color(0xff69c5df)
+                    : Colors.green[400],
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  // image: AssetImage("assets/image/food0.png"),
+                  image: NetworkImage(AppConstants.BASE_URL +
+                          AppConstants.UPLOAD_URL +
+                          popularProduct
+                              .img! //bang operator (tell compiler it can't be null)
+                      ),
+                )),
+          ),
+        ),
+        // Align(
+        //   alignment: Alignment.bottomCenter,
+        //   child: Container(
+        //     height: Dimensions.pageViewTextContainer,
+        //     margin: EdgeInsets.only(
+        //         left: Dimensions.Width20 ,
+        //         right: Dimensions.Width20 ,
+        //         bottom: Dimensions.Height20 / 5),
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(Dimensions.radiusSize30),
+        //       color: Colors.white,
+        //       boxShadow: const [
+        //         BoxShadow(
+        //           color: Color(0xffe8e8e8),
+        //           blurRadius: 5.0,
+        //           offset: Offset(0, 5),
+        //           // spreadRadius: 0.3,
+        //         ),
+        //         BoxShadow(
+        //           color: Colors.white,
+        //           // blurRadius: 5.0,
+        //           offset: Offset(-5, 0),
+        //           // spreadRadius: 0.3,
+        //         ),
+        //         BoxShadow(
+        //           color: Colors.white,
+        //           // blurRadius: 5.0,
+        //           offset: Offset(5, 0),
+        //           // spreadRadius: 0.3,
+        //         ),
+        //       ],
+        //     ),
+        //     child: Container(
+        //       padding: EdgeInsets.only(
+        //           top: Dimensions.Height15,
+        //           left: Dimensions.Width10,
+        //           right: Dimensions.Width10,
+        //           bottom: Dimensions.Height5),
+        //       child: InfoColumn(text: popularProduct.name!),
+        //     ),
+        //   ),
+        // ),
       ]),
     );
   }

@@ -5,18 +5,15 @@ import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utills/colors.dart';
 import 'package:get/get.dart';
 import '/helper/dependencies.dart' as dependencies;
+import 'coltrollers/beverage_controller.dart';
 import 'coltrollers/cart_controller.dart';
 import 'coltrollers/recomended_products_controller.dart';
 import 'package:flutter_config/flutter_config.dart';
 
-
 // Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async{
 //   print("onBackground: ${message.notification?.title}/${message.notification?.body}/""${message.notification?.titleLocKey}");
-// } 
+// }
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-
-
 
 Future<void> main() async {
   // to ensure the dependencies are first initalized
@@ -36,10 +33,6 @@ Future<void> main() async {
   //   print(e.toString());
   //  }
 
-
-
-
-
   //run the app
   runApp(const MyApp());
 }
@@ -51,27 +44,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductModal product = ProductModal();
+      Get.find<BeverageController>()
+        .initProduct(Get.find<CartController>(), product);
     Get.find<PopularProductController>()
         .initProduct(Get.find<CartController>(), product);
+        
 
     Get.find<CartController>().getCartData();
     // Get.find<PopularProductController>()
     //     .initProduct(Get.find<CartController>(), );
-    return GetBuilder<PopularProductController>(
+    return GetBuilder<BeverageController>(
       builder: (_) {
         return GetBuilder<RecomendedProductController>(builder: (_) {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(
-
-              primaryColor: AppColors.mainColor,
-              primarySwatch: Colors.blue,
-            ),
-            // home:const SignInPage(),
-            initialRoute: RouteHelper.getSplashPage(),
-            getPages: RouteHelper.routes,
-          );
+          return GetBuilder<PopularProductController>(builder: (_) {
+            return GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primaryColor: AppColors.mainColor,
+                primarySwatch: Colors.blue,
+              ),
+              // home:const SignInPage(),
+              initialRoute: RouteHelper.getSplashPage(),
+              getPages: RouteHelper.routes,
+            );
+          });
         });
       },
     );
