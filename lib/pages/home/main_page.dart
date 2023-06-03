@@ -9,6 +9,7 @@ import '../../coltrollers/user_controller.dart';
 import '../../utills/colors.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
+import '../../routes/route_helper.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -43,7 +44,6 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(children: [
-                        
                         BigText(
                           text: "Hello!",
                           color: AppColors.mainColor,
@@ -63,16 +63,21 @@ class _MainPageState extends State<MainPage> {
                             ]),
                       ]),
                       Center(
-                        child: Container(
-                          width: 45,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: AppColors.mainColor,
-                          ),
-                          child: const Icon(
-                            Icons.search,
-                            color: Colors.white,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(RouteHelper.getCartPage());
+                          },
+                          child: Container(
+                            width: 45,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: AppColors.mainColor,
+                            ),
+                            child: const Icon(
+                              Icons.shopping_cart_checkout_outlined,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

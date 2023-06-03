@@ -20,8 +20,8 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<LocationController>().getAddressList();
-    bool _userLoggedIn = Get.find<AuthController>().userHaveLoggedIn();
-    if (_userLoggedIn) {
+    bool userLoggedIn = Get.find<AuthController>().userHaveLoggedIn();
+    if (userLoggedIn) {
       Get.find<UserController>().getUserInfo();
     }
 
@@ -36,7 +36,7 @@ class AccountPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        return _userLoggedIn
+        return userLoggedIn
             ? (userController.isLoading
                 ? Container(
                     width: double.maxFinite,
@@ -100,7 +100,7 @@ class AccountPage extends StatelessWidget {
                               ),
                               GetBuilder<LocationController>(
                                   builder: (locationcontroller) {
-                                if (_userLoggedIn &&
+                                if (userLoggedIn &&
                                     locationcontroller.addressList.isEmpty) {
                                   return GestureDetector(
                                     onTap: () {
@@ -145,7 +145,7 @@ class AccountPage extends StatelessWidget {
                                         .clearCartHistory();
                                     Get.find<LocationController>()
                                         .clearAddressList();
-                                    Get.offNamed(RouteHelper.getSignIn());
+                                    Get.offNamed(RouteHelper.getInital());
                                   } else {
                                     print("You have logged out");
                                   }
@@ -167,8 +167,8 @@ class AccountPage extends StatelessWidget {
                       )
                     ]),
                   )
-                : CustomLoader())
-            : PleaseLogin();
+                : const CustomLoader())
+            : const PleaseLogin();
       }),
     );
   }

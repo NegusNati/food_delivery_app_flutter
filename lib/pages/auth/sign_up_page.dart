@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/utills/colors.dart';
-import 'package:food_delivery_app/utills/dimensions.dart';
-import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/custom_loader.dart';
-import 'package:food_delivery_app/widgets/text_field.dart';
+import '../../utills/colors.dart';
+import '../../utills/dimensions.dart';
+import '../../widgets/big_text.dart';
+import '../../widgets/custom_loader.dart';
+import '../../widgets/text_field.dart';
 import 'package:get/get.dart';
 
 import '../../coltrollers/auth_controller.dart';
@@ -74,6 +74,7 @@ class SignUpPage extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
+                        SizedBox( height:Dimensions.Height15),
                         Container(
                           margin: EdgeInsets.only(top: Dimensions.Height30),
                           // width: double.maxFinite,
@@ -82,7 +83,7 @@ class SignUpPage extends StatelessWidget {
                             backgroundColor: Colors.white,
                             radius: Dimensions.Height30 * 4,
                             backgroundImage: const AssetImage(
-                              "assets/image/logo part 1.png",
+                              "assets/image/forgot.png",
                             ),
                           ),
                         ),
@@ -151,24 +152,7 @@ class SignUpPage extends StatelessWidget {
                         SizedBox(
                           height: Dimensions.Height20,
                         ),
-                        RichText(
-                            text: TextSpan(
-                                text: "Sign up using other methods",
-                                style: TextStyle(
-                                    color: Colors.grey[500],
-                                    fontSize: Dimensions.fontSize16))),
-                        Wrap(
-                          children: List.generate(
-                              3,
-                              (index) => Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      radius: Dimensions.radiusSize30 - 5,
-                                      backgroundImage: AssetImage(
-                                          "assets/image/${signUpImages[index]}"),
-                                    ),
-                                  )),
-                        )
+                       
                       ],
                     ),
                   )

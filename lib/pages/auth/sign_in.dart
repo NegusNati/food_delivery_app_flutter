@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/coltrollers/auth_controller.dart';
-import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
-import 'package:food_delivery_app/utills/dimensions.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
+import '../../coltrollers/auth_controller.dart';
+import '../../pages/auth/sign_up_page.dart';
+import '../../utills/dimensions.dart';
+import '../../widgets/small_text.dart';
 import 'package:get/get.dart';
 
 import '../../models/signup_model.dart';
@@ -59,7 +59,9 @@ class SignInPage extends StatelessWidget {
                 ? SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        SizedBox(height: Dimensions.Height30 * 2),
                         Container(
                           margin: EdgeInsets.only(top: Dimensions.Height30),
                           // width: double.maxFinite,
@@ -68,10 +70,12 @@ class SignInPage extends StatelessWidget {
                             backgroundColor: Colors.white,
                             radius: Dimensions.Height30 * 3,
                             backgroundImage: const AssetImage(
-                              "assets/image/logo part 1.png",
+                              "assets/image/forgot.png",
+                              
                             ),
                           ),
                         ),
+                         SizedBox(height: Dimensions.Height30 ),
                         Container(
                           margin: EdgeInsets.only(left: Dimensions.Width10),
                           child: Column(

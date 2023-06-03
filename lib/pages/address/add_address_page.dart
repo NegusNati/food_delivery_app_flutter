@@ -65,6 +65,21 @@ class _AddAddressPageState extends State<AddAddressPage> {
         centerTitle: true,
         title: const Text("Add Your Address"),
         backgroundColor: AppColors.mainColor,
+         automaticallyImplyLeading: false,
+         actions: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios_sharp),
+            onPressed: () {
+              // Get.find<OrderController>().getOrderList();
+              Get.toNamed(RouteHelper.getInital());
+              // Get.back();
+              // Get.to(OrderPage());
+              // Navigator.pop(context);
+            
+              
+            },
+          )
+        ],
       ),
       body: GetBuilder<UserController>(builder: (userController) {
         if (_contactPersonName.text.isEmpty) {
@@ -278,7 +293,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           }
                         });
                       }
-                      Get.back();
+                      // Get.back();
                     },
                     child: Container(
                       padding: EdgeInsets.only(
